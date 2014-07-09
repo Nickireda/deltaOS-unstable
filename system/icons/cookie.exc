@@ -2,7 +2,7 @@ local w, h = term.getSize()
 local cookie = paintutils.loadImage("/system/media/cookie.nfp")
 local cookies = 0
 local bought = {0, 0, 0, 0}
-local shop = {{"Cursor", 15, 0.1}, {"Grandma", 100, 0.5}, {"Farm", 500, 4}, {"Factory", 3000, 10}}
+local shop = {{"Cursor", 15, 0.1}, {"Grandma", 100, 0.5}, {"Farm", 500, 4}, {"Factory", 3000, 10}, {"Kitten Generator", 20000, 100}}
 local CPS = 0
 
 local function draw()
