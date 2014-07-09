@@ -12,7 +12,8 @@ local function updateAvailableNotify()
 		if tonumber(latestBuild:readAll()) > build then
 			term.setCursorPos(ux,uy)	
 			print("Update available.")
-		end	
+		end
+		sleep(15)
 	end
 end	
 		
@@ -59,7 +60,7 @@ local redraw = false
 
 
 isUnstable = true
-build = 37
+build = 38
 fullBuildName = "DeltaOS Unstable(build "..build..")"
 
 os.loadAPI("/apis/users")
