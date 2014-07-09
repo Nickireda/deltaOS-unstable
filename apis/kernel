@@ -10,6 +10,35 @@ function httpDownload(url, path)
  file.close()
 end
 
+function inSpan(x1,y1,x2,y2,x3,y3)
+ if x3>=x1 and x3<=x2 then
+  if y3>=y1 and y3<=y2 then
+   return true
+  end
+ end
+ return false
+end
+
+function saveToFile( oObj, pPath )
+ local file = fs.open(pPath,"w")
+ if file then
+  local ty = type(oObj)
+  if ty == "table" then
+   file.write(textutils.serialize(oObj))
+  elseif ty == "string" then
+   file.write(oObj)
+  elseif ty == "number" then
+   file.write(tostring(oObj))
+  else
+   return false,"Invalid Data Type"
+  end
+  file.close()
+  return true,"Done"
+ else
+  return false,"Invalid Path"
+ end
+end
+
 function clickEvent(xA, yA, button)
  local event, button1, x1 , y1 = os.pullEvent("mouse_click")
  if xA == x1 and yA == y1 and button1 == button then
