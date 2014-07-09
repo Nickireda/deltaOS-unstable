@@ -75,7 +75,7 @@ os.reboot()
 end
 
 local x = kernel.catnip(setup)
-if x ~= "noErr" or x ~= "nil" then 
+if x ~= "noErr" then 
   graphics.reset(colors.blue, colors.white)
   print("")
   term.setBackgroundColor(colors.white)
