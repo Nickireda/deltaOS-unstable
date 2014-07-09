@@ -1,41 +1,6 @@
 
 local function setup()
-  local function pocketDetect()
-  if pocket then
-    graphics.reset(colors.lighBlue, colors.white)
-    print("")
-    graphics.cPrint("WARNING")
-    print("")
-    print("We have detect you are running on a PDA.")
-    print("DeltaOS may be buggy on PDA's")
-    print("This may be fixed in the future.")
-    
-    paintutils.drawLine(2, kernel.y/2, kernel.x-1, kernel.y/2, colors.blue)
-    
-    paintutils.drawLine(2, kernel.y/2+3, kernel.x-1, kernel.y/2+3, colors.blue)
-    
-    term.setCursorPos(2, kernel.y/2+3)
-    print("Uninstall DeltaOS")
-    
-    term.setCursorPos(2, kernel.y/2)
-    print("Continue anyways...")
-    
-    while true do
-      local e, b, x, y = os.pullEvent("mouse_click")
-      if y == kernel.y/2 and x >= 2 and x <= kernel.x-1 then
-        return
-      elseif y == kernel.y/2+3 and x >= 2 and x <= kernel.x-1 then
-        fs.delete("/apps")
-        fs.delete("/system")
-        fs.delete("/users")
-        fs.delete("/startup")
-        fs.delete("/apis")
-        os.reboot()
-      end
-  end
-end
-
---pocketDetect()
+  
     
   
   
