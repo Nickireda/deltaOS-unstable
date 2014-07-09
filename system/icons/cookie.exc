@@ -1,0 +1,75 @@
+local w, h = term.getSize()
+local cookie = paintutils.loadImage("/system/media/cookie.nfp")
+local cookies = 0
+local bought = {0, 0, 0, 0}
+local shop = {{"Cursor", 15, 0.1}, {"Grandma", 100, 0.5}, {"Farm", 500, 4}, {"Factory", 3000, 10}}
+local CPS = 0
+
+local function draw()
+  term.setBackgroundColor(colors.white)
+  term.clear()
+  paintutils.drawImage(cookie, w/2-3, h/2-1)
+  
+  --show shop
+  term.setBackgroundColor(colors.white)
+  for k, item in pairs(shop) do
+    term.setTextColor(colors.lightGray)
+    term.setCursorPos(1, k)
+    write(item[2])
+    term.setTextColor(colors.gray)
+    term.setCursorPos(5, k)
+    write(item[1])
+    term.setCursorPos(w-#tostring(bought[k]), k)
+    term.setTextColor(colors.lightGray)
+    write(bought[k])
+  end
+  
+  term.setCursorPos(w/2-(#tostring(CPS)+#"CpS: ")/2, h/2+5)
+  write("CpS: "..CPS)
+end
+
+local function buyItem(item)
+  if cookies >= shop[item][2] then
+    bought[item] = bought[item]+1
+    cookies = cookies - shop[item][2]
+    CPS = CPS + shop[item][3]
+  end
+end
+
+local function update()
+  term.setTextColor(colors.gray)
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(w/2-(#tostring(cookies)+1+#"Cookies")/2, h/2-3)
+  term.clearLine()
+  term.write(cookies.." Cookies")
+end
+
+local function engine()
+  while true do
+    update()
+    for k, v in pairs(shop) do
+      cookies = cookies+bought[k]*v[3]
+    end
+    sleep(1)
+  end
+end
+
+function loop()
+  while true do
+    draw()
+    update()
+    local e, b, x, y = os.pullEvent("mouse_click")
+    if b == 1 and x >= w/2-3 and x <= w/2+3 and y >= h/2-2 and y <= h/2+3 then
+      cookies = cookies + 1
+      
+      elseif b == 1 and y <= #shop then
+      for k, v in pairs(shop) do
+        if y == k then
+          buyItem(k)
+        end
+      end
+    end
+  end
+end
+
+parallel.waitForAny(loop, engine)
