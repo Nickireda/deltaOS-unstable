@@ -75,6 +75,9 @@ function update()
 		  end
 	  end
   end
+  if fs.exists("system/.setup_trigger") then
+    fs.delete("system/.setup_trigger")
+  end
   if post_dl then loadstring(post_dl)() end
 end
 
@@ -111,7 +114,4 @@ if cb==1 then
   term.setBackgroundColor(colors.cyan)
   term.setCursorPos(1,2)
   update()
-  if fs.exists("system/.setup_trigger") then
-    fs.delete("system/.setup_trigger")
-  end
 end
