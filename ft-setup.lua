@@ -35,7 +35,7 @@ local function setup()
   end
 end
 
-pocketDetect()
+--pocketDetect()
     
   
   
