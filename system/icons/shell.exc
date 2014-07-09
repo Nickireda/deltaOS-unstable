@@ -1,0 +1,2 @@
+print("Type exit to return to return DeltaOS")
+shell.run("shell")
