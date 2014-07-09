@@ -27,4 +27,11 @@
     exec = "system/icons/update.exc",
     icon = "system/icons/update.img",
   },
+  {
+    y = 2,
+    x = 13,
+    name = "CookieClicker",
+    exec = "system/icons/cookie.exc",
+    icon = "system/icosn/cookie.img",
+  },
 }
