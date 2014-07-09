@@ -48,9 +48,9 @@ function sha256()
 end
 reload()
 local option = read()
-if option == 1 then
+if option == "1" then
   sha256()
-elseif option == 2 then
+elseif option == "2" then
   calculate()
 else
   print("Invalid option.")
