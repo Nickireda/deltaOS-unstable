@@ -8,6 +8,9 @@ local CPS = 0
 local function draw()
   term.setBackgroundColor(colors.white)
   term.clear()
+  paintutils.drawPixel(kernel.x, kernel.y, colors.red)
+  term.setCursorPos(kernel.x, kernel.y)
+  write("X")
   paintutils.drawImage(cookie, w/2-3, h/2-1)
   
   --show shop
@@ -72,4 +75,15 @@ function loop()
   end
 end
 
-parallel.waitForAny(loop, engine)
+
+local function close()
+ while true do
+  local e, b, x, y = os.pullEvent("mouse_click")
+  if x == kernel.x and y == kernel.y then
+   error()
+  end
+ end
+end
+
+
+parallel.waitForAny(loop, engine, close)
