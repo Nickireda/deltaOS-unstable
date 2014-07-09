@@ -18,7 +18,7 @@ args[1] = "FlareHAX0R"                                                 -- Github
 args[2] = "DeltaOS-unstable"                                                               -- Github repo name
 args[3] = nil                                                                   -- Branch - defaults to "master"
 args[4] = nil                                                                   -- Path - defaults to root ("/")
-local pre_dl = "graphics.cPrint('Starting download...')"  -- Command(s) to run before download starts.
+local pre_dl = "graphics.cPrint('Starting update...')"  -- Command(s) to run before download starts.
 local post_dl = "os.reboot()"   -- Command(s) to run after download completes.
 --Remove the line below this and change the lines below to use automated mode.
 
@@ -51,7 +51,7 @@ if not json then
 end
 
 function update() 
-  --if pre_dl then loadstring(pre_dl)() else print("Downloading files from github....") end
+  if pre_dl then loadstring(pre_dl)() else print("Downloading files from github....") end
   local data = json.decode(http.get("https://api.github.com/repos/"..args[1].."/"..args[2].."/git/trees/"..args[3].."?recursive=1").readAll())
   if data.message and data.message == "Not found" then error("Invalid repository",2) else
 	  for k,v in pairs(data.tree) do
@@ -105,5 +105,11 @@ while true do
   end
 end
 if cb==1 then
+  term.clear()
+  term.setBackgroundColor(colors.white)
+  term.setCursorPos(1,2)
   update()
+  if fs.exists("system/.setup_trigger") then
+    fs.delete("system/.setup_trigger")
+  end
 end
