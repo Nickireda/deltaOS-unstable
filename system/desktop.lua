@@ -67,7 +67,7 @@ local lw
 if kernel.x>32 then
 	lw = window.create( term.current(), kernel.x/2-30/2, kernel.y/2-10/2, 30, 10, true )
 else
-	lw = window.create( term.current(), kernel.x/2-(kernel.x-2)/2, kernel.y/2-10/2, (kernel.x-2), 10, true )
+	lw = window.create( term.current(), math.ceil(kernel.x/2-(kernel.x-2)/2), kernel.y/2-10/2, (kernel.x-2), 10, true )
 end
 
 term.redirect(lw)
