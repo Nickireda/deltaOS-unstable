@@ -1,0 +1,16 @@
+{
+  {
+    y = 1,
+    x = 1,
+    name = "shell",
+    exec = "system/icons/shell.exc",
+    icon = "system/icons/shell.img",
+  },
+  {
+    y = 2,
+    x = 1,
+    name = "fldr",
+    exec = "system/icons/folder.exc",
+    icon = "system/icons/folder.img",
+  },
+}
