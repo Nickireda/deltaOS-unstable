@@ -2,9 +2,31 @@
 cPrint = function(text)
         local x2,y2 = term.current().getCursorPos()
         local x3,y3 = term.current().getSize()
-        term.current().setCursorPos(math.ceil((x3 / 2) - (text:len() / 2)), y2)
-        
-        print(text)
+        if text:len()<=x3 then --Thats easy
+                term.current().setCursorPos(math.ceil((x3 / 2) - (text:len() / 2)), y2)
+                print(text)
+        else --If its larger its hard because you need word wrapping
+                local words = {}
+                for word in string.gmatch(text, "%a+") do table.insert(words,word) end
+                if #words==1 then
+                        term.current().setCursorPos(math.ceil((x3 / 2) - (text:len() / 2)), y2)
+                        print(text)
+                else
+                        local csent = {}
+                        local i=1
+                        local li=1
+                        repeat
+                                repeat
+                                        table.insert(csent,words[i])
+                                        i=i+1
+                                until #(table.concat(csent," ",li).." "..words[i+1])>x3 or i==#words
+                                local txt = table.concat(csent," ",li)
+                                li=i
+                                term.current().setCursorPos(math.ceil((x3 / 2) - (txt:len() / 2)), y2)
+                                print(txt)
+                        until i==#words
+                end
+        end
 end
 
 function drawImage(image, x, y)
