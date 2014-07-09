@@ -60,6 +60,9 @@ local function backup()
   fs.copy("/apps", "/"..dirs[folder].."/apps")
   fs.copy("/apis", "/"..dirs[folder].."/apis")
   fs.copy("/startup", "/"..dirs[folder].."/startup")
+  local x = fs.open(dirs[folder].."/.backup, "w")
+  x.write("BACKUP MAKRER")
+  x.close()
   graphics.reset(colors.white, colors.black)
   term.setCursorPos(1, kernel.y/2)
   graphics.cPrint("Backed up.")
@@ -71,9 +74,56 @@ local function backup()
 end
 
 
+
+
+local function restore()
+ local dirs = { }
+ graphics.reste(colors.white, colors.black)
+ print("")
+ graphics.cPrint("Delta Time Machine")
+ print("")
+ for _, file in ipairs( fs.list("/") ) do
+  if fs.isDir(file) and fs.exists(file.."/.backup") then
+   table.insert(dirs, file)
+  end
+ end
+ 
+ if dirs[1] ~= nil then
+  graphics.cPrint("We have found the following backups: ")
+  for i=1, #dirs do
+   graphics.cPrint(i..". "..dirs[i])
+  end
+  print("")
+  graphics.cPrint("Please enter the number of the folder.")
+  print("")
+  local folder = tonumber( read() )
+  if dirs[folder] ~= nil then
+   fs.delete("/system")
+   fs.delete("/startup")
+   fs.delete("/apis")
+   fs.delete("/users")
+   fs.copy(dirs[folder].."/system", "/system")
+   fs.copy(dirs[folder].."/startup", "/startup")
+   fs.copy(dirs[folder].."/apis", "/apis")
+   fs.copy(dirs[folder].."/users", "/users")
+   graphics.reset(colors.white, colors.black)
+   term.setCursorPos(1, kernel.y/2)
+   graphics.cPrint("Restored.")
+   sleep(1)
+   os.reboot()
+  else
+   error()
+  end
+ end
+ 
+end
+
+
 while true do 
  local e, b, x, y = os.pullEvent("mouse_click")
  if y == 5 then
   backup()
+ elseif y == 7 then
+  restore()
  end
 end
