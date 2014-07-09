@@ -34,9 +34,13 @@ local function backup()
  graphics.cPrint("We have found these directorys: ")
  print("")
  cPos = 6
+ if dirs[1] ~= nil then
  for i=1, #dirs do
   cPos = cPos+1
   print(i..". "..dirs[1])
+ end
+ else
+  graphics.cPrint("NO directories found.")
  end
  
  paintutils.drawLine(2, cPos+2, kernel.x-1, cPos+2, colors.gray)
