@@ -75,8 +75,11 @@ term.redirect(lw)
 
 local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 if tonumber(latestBuild:readAll()) > build then
-	read()
- shell.run("/system/update")
+	print("Update? (y/n)")
+	inp=read()
+	if inp=="y" or inp=="Y" then
+		shell.run("/system/update")
+	end
 end
 
 while true do
