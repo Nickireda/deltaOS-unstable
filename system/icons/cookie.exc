@@ -1,8 +1,8 @@
 local w, h = term.getSize()
 local cookie = paintutils.loadImage("/system/media/cookie.nfp")
 local cookies = 0
-local bought = {0, 0, 0, 0}
-local shop = {{"Cursor", 15, 0.1}, {"Grandma", 100, 0.5}, {"Farm", 500, 4}, {"Factory", 3000, 10}, {"Mine", 10000, 40}}
+local bought = {0, 0, 0, 0, 0, 0}
+local shop = {{"Cursor", 15, 0.1}, {"Grandma", 100, 0.5}, {"Farm", 500, 4}, {"Factory", 3000, 10}, {"Mine", 10000, 40}, {"Kitten Generator", 20000, 100}}
 local CPS = 0
 
 local function draw()
@@ -20,7 +20,7 @@ local function draw()
     term.setCursorPos(1, k)
     write(item[2])
     term.setTextColor(colors.gray)
-    term.setCursorPos(5, k)
+    term.setCursorPos(8, k)
     write(item[1])
     term.setCursorPos(w-#tostring(bought[k]), k)
     term.setTextColor(colors.lightGray)
