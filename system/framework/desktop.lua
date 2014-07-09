@@ -216,7 +216,7 @@ drawApps()
 
 if isUnstable then
  term.current().setBackgroundColor( colors.lightBlue )
- term.current().setCursorPos(kernel.x-string.len(fullBuildName), kernel.y)
+ term.current().setCursorPos(kernel.x-string.len(fullBuildName)+1, kernel.y)
  write(fullBuildName)
  term.current().setCursorPos(1, 1)
 end
