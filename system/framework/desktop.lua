@@ -10,8 +10,8 @@ local function updateAvailableNotify()
 	while true do
 		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 		if tonumber(latestBuild:readAll()) > build then
-			term.setCursorPos(ux,uy)	
-			print("Update available.")
+			term.setCursorPos(ux-string.len("Update available"), 1)	
+			write("Update available.")
 		end
 		sleep(15)
 	end
