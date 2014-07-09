@@ -1,0 +1,62 @@
+--EpiProgram
+--A multi-task program
+
+--This table will be a good thing to print everything
+tasks = {
+  {
+    1,
+    "Hashing"
+  }
+  {
+    2,
+    "Calculator"
+  }
+}
+function list()
+  for i=1,#tasks do
+    print(tostring(tasks[i][1]) .. ": " .. tasks[i][2])
+  end
+end
+function reload()
+  print("Welcome to EpiProgram.")
+  print("Here are the tasks available:")
+  list()
+end
+reload()
+function calculate()
+  --This will not work for some things.
+  while true do
+    print("Equation: -Slash is divide, asterisk for multiply, exit to exit-")
+    local hi = read()
+    if hi == "exit" then
+      reload()
+    else
+      print("Answer: " .. tostring(hi))
+    end
+  end
+end
+function sha256()
+  while true do
+    print("Text: -exit to exit-")
+    local hi = read()
+    if hi == "exit" then
+      reload()
+    else
+      print("Hash: " .. sha256.hash(hi))
+    end
+  end
+end
+reload()
+local option = read()
+if option == 1 then
+  sha256()
+elseif option == 2 then
+  calculate()
+else
+  print("Invalid option.")
+  reload()
+end  
+  
+
+    
+    
