@@ -1,0 +1,75 @@
+graphics.reset(colors.white, colors.black)
+print("")
+graphics.cPrint("Delta Time Machine")
+
+
+print("")
+
+paintutils.drawLine(2, 5, kernel.x-1, 5, colors.blue)
+paintutils.drawLine(2, 7, kernel.x-1, 7, colors.blue)
+
+term.setCursorPos(1, 5)
+graphics.cPrint("Backup")
+
+term.setCursorPos(1, 7)
+graphics.cPrint(" Restore")
+
+
+local function backup()
+ local dirs = { }
+ local cPos = 1
+ 
+ for _, dir in ipairs(fs.list("/")) do
+  if dir ~= "users" and dir ~= "rom" and dir ~= "system" and dir ~= "apps" and dir ~= "apis" then
+   if fs.isDir(dir) then
+    table.insert(dirs, dir)
+   end
+  end
+ end
+ graphics.reset(colors.white, colors.black)
+ print("")
+ graphics.cPrint("Delta Time Machine")
+ print("")
+ print("")
+ graphics.cPrint("We have found these directorys: ")
+ print("")
+ cPos = 6
+ for i=1, #dirs do
+  cPos = cPos+1
+  print(i..". "..dirs[1])
+ end
+ 
+ paintutils.drawLine(2, cPos+2, kernel.x-1, cPos+2, colors.gray)
+ 
+ term.setCursorPos(1, cPos+4)
+ term.setBackgroundColor(colors.white)
+ print("Please enter the number of the directory.")
+ 
+ term.setCursorPos(2, cPos+2)
+ term.setBackgroundColor(colors.gray)
+ local folder = tonumber(read())
+ if dirs[folder] ~= nil then
+  shell.run("rm", "/"..dirs[folder].."*")
+  fs.copy("/ft-setup.lua", "/"..dirs[folder].."/ft-setup.lua")
+  fs.copy("/system", "/"..dirs[folder].."/system")
+  fs.copy("/users", "/"..dirs[folder].."/users")
+  fs.copy("/apps", "/"..dirs[folder].."/apps")
+  fs.copy("/apis", "/"..dirs[folder].."/apis")
+  fs.copy("/startup", "/"..dirs[folder].."/startup")
+  graphics.reset(colors.white, colors.black)
+  term.setCursorPos(1, kernel.y/2)
+  graphics.cPrint("Backed up.")
+  sleep(0.6)
+  graphics.reset(colors.black, colors.white)
+  error()
+  
+ end
+end
+
+
+while true do 
+ local e, b, x, y = os.pullEvent("mouse_click")
+ if y == 5 then
+  backup()
+ end
+end
