@@ -3,7 +3,9 @@ deltaOS
 
 DeltaOS files
 
-Epic is adding:
-===================
-SHA-256 encryption
+Download
+=======
+http://pastebin.com/9FiUs9pZ
 
+Or inside computercraft:
+pastebin run 9FiUs9pZ
