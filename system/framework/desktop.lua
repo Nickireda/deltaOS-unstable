@@ -46,7 +46,7 @@ local redraw = false
 
 
 isUnstable = true
-build = "27"
+build = 28
 fullBuildName = "DeltaOS Unstable(build "..build..")"
 
 os.loadAPI("/apis/users")
@@ -74,7 +74,7 @@ term.redirect(lw)
 
 
 local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
-if latestBuild:readAll() > build then
+if tonumber(latestBuild:readAll()) > build then
 	read()
  shell.run("/system/update")
 end
