@@ -92,7 +92,7 @@ local function restore()
   end
  end
  
- if dirs[1] ~= nil then
+ if #dirs>0 then
   graphics.cPrint("We have found the following backups: ")
   for i=1, #dirs do
    cPos = cPos+1
