@@ -95,24 +95,23 @@ term.setTextColor(colors.black)
 term.clear()
 term.setCursorPos(2,2)
 graphics.cPrint("Are you sure you want to update?")
-term.setCursorPos(2,3)
 graphics.cPrint("Updating will remove all icon data")
 term.setBackgroundColor(colors.cyan)
-term.setCursorPos(2,5)
+term.setCursorPos(2,kernel.y-3)
 write(string.rep(" ",kernel.x-2))
-term.setCursorPos(2,5)
+term.setCursorPos(2,kernel.y-3)
 graphics.cPrint("Update!")
-term.setCursorPos(2,7)
+term.setCursorPos(2,kernel.y-1)
 write(string.rep(" ",kernel.x-2))
-term.setCursorPos(2,7)
+term.setCursorPos(2,kernel.y-1)
 graphics.cPrint("Cancel")
 while true do
   local e,_,x,y = os.pullEvent()
   if e=="mouse_click" or e=="monitor_touch" then
-    if y==5 then
+    if y==kernel.y-3 then
       cb=1
       break
-    elseif y==7 then
+    elseif y==kernel.y-1 then
       cb=2
       break
     end
