@@ -14,7 +14,7 @@ lclk = os.clock()
 grid = false
 
 function getGridMax()
- return math.floor(width/gridsze),math.floor(height/gridsze)
+ return math.floor(width/gridsze),math.floor((height-1)/gridsze)
 end
 
 function isTaken(x,y)
@@ -46,7 +46,7 @@ local redraw = false
 
 
 isUnstable = true
-build = 29
+build = 30
 fullBuildName = "DeltaOS Unstable(build "..build..")"
 
 os.loadAPI("/apis/users")
