@@ -189,7 +189,7 @@ end
 
 local function drawGrid()
  term.setBackgroundColor(colors.lightBlue)
- for i=1,math.floor(width/gridsze) do
+ for i=1,math.floor(width/gridsze)+1 do
   for j=2,height do
    term.setCursorPos((i-1)*gridsze+1,j)
    write("|")
