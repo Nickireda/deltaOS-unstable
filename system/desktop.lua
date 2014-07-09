@@ -63,8 +63,12 @@ local gc = getC()
 
 graphics.drawImage("/system/delta.nfp", 1, 1)
 
-
-local lw = window.create( term.current(), kernel.x/2-30/2, kernel.y/2-10/2, 30, 10, true )
+local lw
+if kernel.x>32 then
+	lw = window.create( term.current(), kernel.x/2-30/2, kernel.y/2-10/2, 30, 10, true )
+else
+	lw = window.create( term.current(), kernel.x/2-(kernel.x-2)/2, kernel.y/2-10/2, (kernel.x-2), 10, true )
+end
 
 term.redirect(lw)
 
