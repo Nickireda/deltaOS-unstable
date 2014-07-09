@@ -59,6 +59,7 @@ function update()
 		  if v.type == "tree" then
 		   	fs.makeDir(fs.combine(args[4],v.path))
 		  	if not hide_progress then
+		  		term.setCursorPos(1,2)
 			  	graphics.cPrint(v.path)
 			  end
 		  end
@@ -68,6 +69,7 @@ function update()
 		  if v.type == "blob" then
 			  download("https://raw.github.com/"..args[1].."/"..args[2].."/"..args[3].."/"..v.path,fs.combine(args[4],v.path))
 			  if not hide_progress then
+			        term.setCursorPos(1,2)
 			   	graphics.cPrint(v.path)
 			  end
 		  end
@@ -106,7 +108,7 @@ while true do
 end
 if cb==1 then
   term.clear()
-  term.setBackgroundColor(colors.white)
+  term.setBackgroundColor(colors.cyan)
   term.setCursorPos(1,2)
   update()
   if fs.exists("system/.setup_trigger") then
