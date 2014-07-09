@@ -34,7 +34,7 @@ function calculate()
     if hi == "exit" then
       reload()
     else
-      print("Answer: " .. tostring(hi))
+      print("Answer: " .. tonumber(hi))
     end
   end
 end
