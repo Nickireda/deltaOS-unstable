@@ -23,7 +23,7 @@
   {
     y = 1,
     y = 1,
-    name = "Updt"
+    name = "Updt",
     exec = "system/icons/update.exc",
     icon = "system/icons/update.img",
   },
