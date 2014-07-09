@@ -1,2 +1,2 @@
-print("Type exit to return to return DeltaOS")
+print("Type exit to return to DeltaOS")
 shell.run("shell")
