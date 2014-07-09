@@ -42,8 +42,8 @@ end
 
 
 if fs.exists("/system/.setup_trigger") then
- shell.run("/ft-setup.lua")
- fs.delete("system/.setup_trigger")
+ shell.run("/system/framework/ft-setup")
+ fs.delete("/system/.setup_trigger")
 end
 
 
