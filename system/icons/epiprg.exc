@@ -1,6 +1,9 @@
 --EpiProgram
 --A multi-task program
 
+--Bugfix
+os.loadAPI("apis/sha256")
+
 --This table will be a good thing to print everything
 tasks = {
   {
