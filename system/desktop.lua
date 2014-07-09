@@ -1,9 +1,44 @@
 os.pullEvent = os.pullEventRaw
 
 
+local width = kernel.x
+local height = kernel.y
 
+appsdir = "system/apps"
+appsfle = "system/.appdata"
+gridsze = 5 --x=gridsze*c[x]+1
+dbclk = 0.4
+
+asel = 0
+lclk = os.clock()
+grid = false
+
+function getGridMax()
+ return math.floor(width/gridsze),math.floor(height/gridsze)
+end
+
+function isTaken(x,y)
+ for k,v in pairs(apps) do
+  if apps[k].x==x and apps[k].y==y then
+   return true
+  end
+ end
+ return false
+end
+
+function saveInfo()
+ kernel.saveToFile(apps,"system/.appdata")
+end
 
 local function mainDesktop()
+
+local function getIcons()
+ apps = {}
+ local m = fs.open(appsfle,"r")
+ apps = textutils.unserialize(m.readAll())
+ m.close()
+end
+getIcons()
 
 n = {  }
 local isAppOpen = false
@@ -11,7 +46,7 @@ local redraw = false
 
 
 isUnstable = true
-build = "26"
+build = "27"
 fullBuildName = "DeltaOS Unstable(build "..build..")"
 
 os.loadAPI("/apis/users")
@@ -35,8 +70,9 @@ term.redirect(lw)
 
 
 local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
-if latestBuild:readAll() ~= build then
-	shell.run("/system/update")
+if latestBuild:readAll() > build then
+	read()
+ shell.run("/system/update")
 end
 
 while true do
@@ -113,11 +149,66 @@ local function drawBar()
 	term.current().write("D")
 end
 
-local function draw()
+local function findSpace(elim)
+ --TODO; MAKE DIS
+ local tx,ty = getGridMax()
+ for i=1,tx do
+  for j=1,ty do
+   if not isTaken(i,j) then
+    return true,i,j
+   end
+  end
+ end
+ return false
+end
+
+local function drawApps()
+ --Format apps
+ --icon,name,exec,x,y
+ for k,v in pairs(apps) do
+--  print(apps[k][4])
+--  print(apps[k][5])
+  local gx,gy = getGridMax()
+  if apps[k].x>gx or apps[k].y>gy then
+   local _,tx,ty = findSpace(k)
+   if _ then
+    apps[k].x=tx
+    apps[k].y=ty
+    saveInfo()
+   end
+  end
+--====================================================================================
+  graphics.drawImage(apps[k].icon,(apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+3)
+  term.setCursorPos((apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+6)
+  term.setBackgroundColor(asel==k and colors.blue or colors.lightBlue)
+  write(string.rep(" ",gridsze-1))
+  term.setCursorPos((apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+6)
+  write(apps[k].name:sub(1,gridsze-1))
+ end
+end
+
+local function drawGrid()
+ term.setBackgroundColor(colors.lightBlue)
+ for i=1,math.floor(width/gridsze) do
+  for j=2,height do
+   term.setCursorPos((i-1)*gridsze+1,j)
+   write("|")
+  end
+ end
+ for i=1,math.floor(height/gridsze)+1 do
+  term.setCursorPos(1,(i-1)*gridsze+2)
+  write(string.rep("-",width))
+ end
+end
+
+local function draw(ua)
 graphics.reset( colors.lightBlue, colors.black )
 term.current().setCursorPos(kernel.x-(kernel.x-1), 1)
-
+if ua==nil then ua=true end
 drawBar()
+if ua then getIcons() end
+if grid then drawGrid() end
+drawApps()
 
 if isUnstable then
  term.current().setBackgroundColor( colors.lightBlue )
@@ -138,30 +229,120 @@ end
 
 draw()
 
+local function timeout(s)
+ sleep(s)
+ return true
+end
 
+local function rtz(n)
+ if n<0 then return 0 else return n end
+end
 
+local function dragIcon(iID)
+ if apps[iID] then
+  local ids
+  while ids~=1 do
+   ids=parallel.waitForAny(function() timeout(0.15) end,
+   function()
+    local _,_,x,y = os.pullEvent("mouse_drag")
+    local tpx = rtz(math.floor((x-1)/gridsze))+1
+    local tpy = rtz(math.floor((y-2)/gridsze))+1
+    if not isTaken(tpx,tpy) then
+     apps[iID].x=tpx
+     apps[iID].y=tpy
+    end
+   end)
+   draw(false)
+  end
+  saveInfo()
+  return true
+ else
+  return false
+ end
+end
+
+--[[
+function isTaken(x,y)
+ for k,v in pairs(apps) do
+  if apps[k]["x"]==x and apps[k]["y"]==y then
+   return true 
+  end
+ end
+ return false
+end
+]]--
+
+--function getGridMax()
+-- local x,y = kernal.x,kernal.y
+-- return math.floor(x/gridsze),math.floor(y/gridsze)
+--end
 
 local function shellServ() 
 while true do
-	if kernel.clickEvent(kernel.x-(kernel.x-1), kernel.y-(kernel.y-1), 2) then
-		local d = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Do you want to", "launch the shell?"}, true,true)
+ local e,b,x,y = os.pullEvent()
+ if e=="mouse_click" or e=="mouse_drag" then
+	if x==kernel.x-(kernel.x-1) and y==kernel.y-(kernel.y-1) and b==2 then
+		local d = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Do you want to", "shutdown?"}, true,true)
 		if d:autoCaptureEvents() == "ok" then
 			draw()
 			animations.closeIn()
 			graphics.reset(colors.black, colors.white)
 			--term.setCursorPos(1, 2)
 			--isAppOpen = true
-			print("Run 'exit' to go back to deltaOS")
-			shell.run("/rom/programs/shell")
+			--print("Run 'exit' to go back to deltaOS")
+			--shell.run("/rom/programs/shell")
+   saveInfo()
+   os.shutdown()
 			--isAppOpen = false
-			animations.wake()
-			draw()
+			--animations.wake()
+			--draw()
 		else
 			
 			draw()
 		end
-	end
-end
+	else
+  local found = false
+  for k,v in pairs(apps) do
+   local xs,ys = (apps[k].x-1)*gridsze,(apps[k].y-1)*gridsze
+   --local xs,ys = 3,4
+   --print(kernal.inSpan) read()
+   
+   if kernel.inSpan(xs+2,ys+3,xs+5,ys+6,x,y) then
+    if e=="mouse_drag" then
+     if asel~=k then asel=k;draw(false) end
+     dragIcon(k)
+    else
+     if asel==k then
+      if os.clock()-lclk<=dbclk then
+       animations.closeIn()
+       graphics.reset(colors.black,colors.white)
+       shell.run(apps[k]["exec"])
+       if grid then drawGrid() end
+       animations.wake()
+       draw()
+      end
+     else
+      asel=k
+      draw()
+     end 
+     lclk=os.clock()
+    end
+    found=true
+    break
+   end
+  end
+  if not found then
+   asel=0
+   draw()
+  end
+  end
+ elseif e=="key" then
+  if b==67 then
+   grid = not grid
+   draw()
+  end
+ end
+ end
 end
 
 
@@ -203,6 +384,7 @@ end
 
 end
 
+
 local err = kernel.catnip(mainDesktop)
 if err ~= "noErr" then 
   graphics.reset(colors.blue, colors.white)
@@ -228,14 +410,12 @@ if err ~= "noErr" then
   graphics.cPrint("Press any key to continue.")
   while true do
      local event = os.pullEvent()
-     if event == "key" or "mouse_click" or "monitor_touch" then
+     if event == "key" or event == "monitor_touch" then
        os.reboot()
      end
   end
 end
-  
 
+--mainDesktop()  
 
-
-
-
+kernel.saveToFile(apps,"system/.appdata")
