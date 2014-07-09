@@ -71,7 +71,8 @@ local function backup()
   sleep(0.6)
   graphics.reset(colors.black, colors.white)
   error()
-  
+ else
+  error()
  end
 end
 
@@ -79,6 +80,7 @@ end
 
 
 local function restore()
+ local cPos = 1
  local dirs = { }
  graphics.reset(colors.white, colors.black)
  print("")
@@ -93,11 +95,14 @@ local function restore()
  if dirs[1] ~= nil then
   graphics.cPrint("We have found the following backups: ")
   for i=1, #dirs do
+   cPos = cPos+1
    graphics.cPrint(i..". "..dirs[i])
   end
   print("")
   graphics.cPrint("Please enter the number of the folder.")
   print("")
+  paintutils.drawLine(2, cPos+2, kernel.x, cPos+2, colors.gray)
+  term.setCursorPos(2, cPos+2)
   local folder = tonumber( read() )
   if dirs[folder] ~= nil then
    fs.delete("/system")
