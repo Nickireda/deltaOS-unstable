@@ -58,7 +58,7 @@ term.setCursorPos(1, 2)
 
 graphics.cPrint("DeltaOS")
 
-graphics.drawImage("/system/logo.nfp", kernel.x/2-11/2, 4)
+graphics.drawImage("/system/media/logo.nfp", kernel.x/2-11/2, 4)
 
 term.setBackgroundColor(colors.lightBlue)
 
@@ -84,7 +84,7 @@ sleep(1.5)
 
 
 
-shell.run("/system/desktop.lua")
+shell.run("/system/framework/desktop.lua")
 end
 
 
