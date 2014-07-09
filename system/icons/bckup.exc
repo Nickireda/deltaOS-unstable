@@ -80,7 +80,7 @@ end
 
 local function restore()
  local dirs = { }
- graphics.reste(colors.white, colors.black)
+ graphics.reset(colors.white, colors.black)
  print("")
  graphics.cPrint("Delta Time Machine")
  print("")
