@@ -1,16 +1,23 @@
 {
   {
-    y = 1,
-    x = 1,
+    y = 2,
+    x = 5,
     name = "shell",
     exec = "system/icons/shell.exc",
     icon = "system/icons/shell.img",
   },
   {
     y = 2,
-    x = 1,
+    x = 8,
     name = "fldr",
     exec = "system/icons/folder.exc",
     icon = "system/icons/folder.img",
+  },
+  {
+    y = 2,
+    x = 11,
+    name = "Bak/Res",
+    exec = "system/icons/bckup.exc",
+    icon = "system/icons/bckup.img",
   },
 }
