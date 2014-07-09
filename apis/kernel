@@ -3,6 +3,13 @@
 
 x, y = term.current().getSize()
 
+function notification(string)
+  ux=kernel.x-string.len(string)
+  uy=1
+  term.setCursorPos(ux,uy)
+  write(string)
+end  
+
 function httpDownload(url, path)
  local data = http.get(url)
  local file = fs.open(path, "w")
