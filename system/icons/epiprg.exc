@@ -6,7 +6,7 @@ tasks = {
   {
     1,
     "Hashing"
-  }
+  },
   {
     2,
     "Calculator"
