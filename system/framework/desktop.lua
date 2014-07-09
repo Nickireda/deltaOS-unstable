@@ -61,7 +61,7 @@ local gc = getC()
 
 
 
-graphics.drawImage("/system/delta.nfp", 1, 1)
+graphics.drawImage("/system/media/delta.nfp", 1, 1)
 
 local lw
 if kernel.x>32 then
