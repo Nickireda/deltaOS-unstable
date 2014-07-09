@@ -64,7 +64,17 @@ graphics.reset(colors.lightGray, colors.black)
 
 graphics.reset(colors.lightGray, colors.black)
 
+print("")
+graphics.cPrint("Tips")
+print("")
+print("")
+print("Press F1 to go into sleep mode.")
+print("Press F9 to the grid on the desktop.")
+print("All passwords are hashed with SHA256")
+print("Check for updates every day!")
+print("Back up your data!")
 
+sleep(1.6)
 
 graphics.reset(colors.lightGray, colors.black)
 graphics.cPrint("First time setup is finished.")
