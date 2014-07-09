@@ -3,6 +3,19 @@ os.pullEvent = os.pullEventRaw
 
 local width = kernel.x
 local height = kernel.y
+local ustring = "Update available"
+local ux=width-string.len(ustring)
+local uy=height
+local function updateAvailableNotify()
+	while true do
+		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
+		if tonumber(latestBuild:readAll()) > build then
+			term.setCursorPos(ux,uy)	
+			print("Update available.")
+		end	
+	end
+end	
+		
 
 appsdir = "system/apps"
 appsfle = "system/.appdata"
@@ -46,7 +59,7 @@ local redraw = false
 
 
 isUnstable = true
-build = 36
+build = 37
 fullBuildName = "DeltaOS Unstable(build "..build..")"
 
 os.loadAPI("/apis/users")
@@ -387,7 +400,7 @@ end
 
 
 
-parallel.waitForAll(sleepServ, shellServ, rServ)
+parallel.waitForAll(sleepServ, shellServ, rServ, updateAvailableNotify)
 end
 
 end
