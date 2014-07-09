@@ -247,7 +247,8 @@ local function dragIcon(iID)
     local _,_,x,y = os.pullEvent("mouse_drag")
     local tpx = rtz(math.floor((x-1)/gridsze))+1
     local tpy = rtz(math.floor((y-2)/gridsze))+1
-    if not isTaken(tpx,tpy) then
+    local gx,gy = getGridMax()
+    if not isTaken(tpx,tpy) and tpx<=gx and tpy<=gy then
      apps[iID].x=tpx
      apps[iID].y=tpy
     end
