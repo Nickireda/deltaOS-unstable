@@ -19,7 +19,7 @@ cPrint = function(text)
                                 repeat
                                         table.insert(csent,words[i])
                                         i=i+1
-                                until #(table.concat(csent," ",li).." "..words[i+1])>x3 or i==#words
+                                until #(table.concat(csent," ",li).." "..(words[i+1] and words[i+1] or ""))>x3 or i==#words
                                 local txt = table.concat(csent," ",li)
                                 li=i
                                 term.current().setCursorPos(math.ceil((x3 / 2) - (txt:len() / 2)), y2)
