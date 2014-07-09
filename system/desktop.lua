@@ -7,7 +7,7 @@ local height = kernel.y
 appsdir = "system/apps"
 appsfle = "system/.appdata"
 gridsze = 5 --x=gridsze*c[x]+1
-dbclk = 0.4
+dbclk = 0.6
 
 asel = 0
 lclk = os.clock()
