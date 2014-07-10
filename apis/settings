@@ -1,23 +1,30 @@
 
 
 function getSetting(setting, number)
- local get = fs.open("/home/settings/"..setting, "w")
- local settings = textutils.unserialize(get.readAll())
+ local get = fs.open("/home/settings/"..setting, "r")
+ local settings = textutils.unserialize( get.readAll() )
  get.close()
- return settings[number]
+ if number ~= nil then
+  return settings[number]
+ elseif number == nil then
+  return settings
+ end
 end
 
 
 
 function addSetting(setting, number, newValue)
- local get = fs.open("/home/settings/"..setting, "w")
+
+ local set = getSetting(setting)
+
+ local get = fs.open("/home/settings"..setting, "w")
  
- local settings = textutils.unserialize( get.readAll() )
  
- table.remove(settings, number)
- table.insert(settings, number, setting)
  
- get.write( textutils.serialize(settings) )
+ table.remove(set, number)
+ table.insert(set, number, setting)
+ 
+ get.write( textutils.serialize(set) )
  
  get.close()
  
