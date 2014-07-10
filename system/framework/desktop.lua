@@ -73,7 +73,7 @@ end
 local gc = getC()
 
 
---local function login()
+local function login()
 	
 graphics.drawImage("/system/media/delta.nfp", 1, 1)
 
@@ -153,9 +153,9 @@ else
 		os.reboot()
 	end
 end
---end
+end
 
---login()
+login()
 	
 
 
