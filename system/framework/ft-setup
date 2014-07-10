@@ -27,13 +27,29 @@ term.setCursorPos(1, kernel.y/2+3)
 
 graphics.cPrint("Password: ")
 
+term.setCursorPos(1, kernel.y/2+7)
+
+graphics.cPrint("Repeat Password:")
+
 term.setCursorPos(2, kernel.y/2)
 term.setBackgroundColor(colors.gray)
 local user = read()
 
+repeat
 term.setCursorPos(2, kernel.y/2+4)
 
 local pass = sha256.hash( read("*") )
+
+term.setCursorPos(2, kernel.y/2+8)
+
+local pass2 = sha256.hash( read("*") )
+if pass~=pass2 then
+  term.setCursorPos(2, kernel.y/2-3)
+  term.setTextColor(colors.red)
+  graphics.cPrint("Passwords Do Not Match")
+  term.setTextColor(colors.black)
+end
+until pass==pass2
 
 users.newUser(user, pass)
 
