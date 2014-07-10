@@ -1,5 +1,6 @@
 os.pullEvent = os.pullEventRaw
 
+build = 40
 
 local width = kernel.x
 local height = kernel.y
@@ -59,7 +60,7 @@ local redraw = false
 
 
 isUnstable = true
-build = 39
+
 fullBuildName = "DeltaOS Unstable(build "..build..")"
 
 os.loadAPI("/apis/users")
