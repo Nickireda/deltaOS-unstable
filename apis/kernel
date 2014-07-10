@@ -46,6 +46,27 @@ function saveToFile( oObj, pPath )
  end
 end
 
+function getFromFile( pPath )
+ local file = fs.open(pPath,"r")
+ if file then
+  oObj=file.readAll()
+  local ty = type(oObj)
+  if ty == "table" then
+   return textutils.unserialize(oObj)
+  elseif ty == "string" then
+   return oObj
+  elseif ty == "number" then
+   return tonumber(oObj)
+  else
+   return false,"Unrecognized Data Type"
+  end
+  file.close()
+  return true,"Done"
+ else
+  return false,"Invalid Path"
+ end
+end
+
 function clickEvent(xA, yA, button)
  local event, button1, x1 , y1 = os.pullEvent("mouse_click")
  if xA == x1 and yA == y1 and button1 == button then
