@@ -153,7 +153,6 @@ else
 		os.reboot()
 	end
 end
-end
 
 --login()
 	
