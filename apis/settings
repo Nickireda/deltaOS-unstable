@@ -1,0 +1,25 @@
+
+
+function getSetting(setting, number)
+ local get = fs.open("/home/settings/"..setting, "w")
+ local settings = textutils.unserialize(get.readAll())
+ get.close()
+ return settings[number]
+end
+
+
+
+function addSetting(setting, number, newValue)
+ local get = fs.open("/home/settings/"..setting, "w")
+ 
+ local settings = textutils.unserialize( get.readAll() )
+ 
+ table.remove(settings, number)
+ table.insert(settings, number, setting)
+ 
+ get.write( textutils.serialize(settings) )
+ 
+ get.close()
+ 
+end
+
