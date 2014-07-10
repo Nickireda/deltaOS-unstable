@@ -10,11 +10,11 @@ local function updateAvailableNotify()
 	while true do
 		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 		if tonumber(latestBuild:readAll()) > build then
-			term.setCursorPos(ux, 1)
-			term.setBackgroundColor(colors.lightGray)
+			term.current().setCursorPos(ux, 1)
+			term.current()setBackgroundColor(colors.lightGray)
 			write("Update available.")
 		end
-		sleep(30)
+		sleep(16)
 	end
 end	
 		
@@ -86,12 +86,18 @@ else
 	lw = window.create( term.current(), kernel.x/2-(kernel.x-2)/2+1, kernel.y/2-10/2, (kernel.x-2), 10, true )
 end
 
+
+
 term.redirect(lw)
 
 
+local lwx, lwy = lw.getSize()
+
 local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 if tonumber(latestBuild:readAll()) > build then
-	print("Update? (y/n)")
+	graphics.reset(colors.white, colors.blue)
+	term.setCursorPos(1, lwx/2)
+	graphics.cPrint("Update? (y/n)")
 	inp=read()
 	if inp=="y" or inp=="Y" then
 		shell.run("/system/update")
