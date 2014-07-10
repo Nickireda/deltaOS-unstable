@@ -17,6 +17,9 @@ paintutils.drawLine(2, kernel.y/2, kernel.x-1, kernel.y/2, colors.gray)
 
 paintutils.drawLine(2, kernel.y/2+4, kernel.x-1, kernel.y/2+4, colors.gray)
 
+paintutils.drawLine(2, kernel.y/2+8, kernel.x-1, kernel.y/2+8, colors.gray)
+
+
 term.setCursorPos(1, kernel.y/2-1)
 term.setBackgroundColor(colors.lightGray)
 
@@ -42,7 +45,7 @@ local pass = sha256.hash( read("*") )
 
 term.setCursorPos(2, kernel.y/2+8)
 
-paintutils.drawLine(2, kernel.y/2+8, kernel.x-1, 2, colors.gray)
+
 
 local pass2 = sha256.hash( read("*") )
 if pass ~= pass2 then
