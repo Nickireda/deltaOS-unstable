@@ -11,7 +11,7 @@ local function updateAvailableNotify()
 		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 		if tonumber(latestBuild:readAll()) > build then
 			term.current().setCursorPos(ux, 1)
-			term.current()setBackgroundColor(colors.lightGray)
+			term.current().setBackgroundColor(colors.lightGray)
 			write("Update available.")
 		end
 		sleep(16)
