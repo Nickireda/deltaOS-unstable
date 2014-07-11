@@ -12,7 +12,7 @@ local function updateAvailableNotify()
 		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 		
 		local  lb = tostring( latestBuild:readAll() )
-		if tonumber(latestBuild:readAll()) > build then
+		if tonumber(latestBuild.readAll()) > build then
 			if first then
 				local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
 		        	if ubox:autoCapturedEvents() == "ok" then
