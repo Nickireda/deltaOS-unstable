@@ -422,37 +422,8 @@ end
 end
 
 
-local err = kernel.catnip(mainDesktop)
-if err ~= "noErr" and err ~= "nil" then 
-  graphics.reset(colors.blue, colors.white)
-  print("")
-  term.current().setTextColor(colors.black)
-  term.current().setBackgroundColor(colors.white)
-  graphics.cPrint("DeltaOS")
-  term.current().setBackgroundColor(colors.blue)
-  term.current().setTextColor(colors.white)
-  print("")
-  graphics.cPrint("An error has occured.")
-  graphics.cPrint("The error is: "..tostring(x))
-  print("")
-  graphics.cPrint("Please report this error to ")
-  graphics.cPrint("the deltaOS repo.")
-  print("")
-  graphics.cPrint("DeltaOS Unstable repo: ")
-  graphics.cPrint("https://github.com/FlareHAX0R/deltaOS-unstable")
-  print("")
-  graphics.cPrint("DeltaOS Stable repo: ")
-  graphics.cPrint("https://github.com/FlareHAX0R/deltaOS")
-  print("")
-  graphics.cPrint("Press any key to continue.")
-  while true do
-     local event = os.pullEvent()
-     if event == "key" or event == "monitor_touch" then
-       os.reboot()
-     end
-  end
-end
 
---mainDesktop()  
+
+mainDesktop()  
 
 kernel.saveToFile(apps,"system/.appdata")
