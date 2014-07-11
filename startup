@@ -40,6 +40,12 @@ for k, v in pairs( tApis ) do
  end
 end
 
+local tApis = fs.list( "/lib" )
+for k, v in pairs( tApis ) do
+ if not fs.isDir(v) then
+  dofile("/apis/"..v)
+ end
+end
 
 if fs.exists("/system/.setup_trigger") then
  shell.run("/system/framework/ft-setup")
