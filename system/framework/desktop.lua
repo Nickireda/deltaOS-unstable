@@ -13,13 +13,14 @@ local function updateAvailableNotify()
 		
 		local  lb = tostring( latestBuild:readAll() )
 		if tonumber(latestBuild:readAll()) > build then
-			if not first then
+			if first then
 				local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
 		        	if ubox:autoCapturedEvents() == "ok" then
 		        		shell.run("/system/icons/update.exc")
 		        	else
 		        		draw()
 		        	end
+		        	first=false
 			else
 	        		local ox,oy = term.getCursorPos()
 	        		local ob,ot = term.getBackgroundColor(),term.getTextColor()
