@@ -15,7 +15,7 @@ local function updateAvailableNotify()
 		if tonumber(lb) > build then
 			if first then
 				local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
-		        	if ubox:autoCapturedEvents() == "ok" then
+		        	if ubox:autoCaptureEvents() == "ok" then
 		        		shell.run("/system/icons/update.exc")
 		        	else
 		        		draw()
