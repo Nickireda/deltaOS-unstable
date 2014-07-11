@@ -423,7 +423,7 @@ end
 
 
 local err = kernel.catnip(mainDesktop)
-if err ~= "noErr" then 
+if err ~= "noErr" and err ~= "nil" then 
   graphics.reset(colors.blue, colors.white)
   print("")
   term.current().setTextColor(colors.black)
