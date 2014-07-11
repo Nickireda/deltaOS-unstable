@@ -40,10 +40,10 @@ for k, v in pairs( tApis ) do
  end
 end
 
-local tApis = fs.list( "/lib" )
-for k, v in pairs( tApis ) do
+local tLib = fs.list( "/lib" )
+for k, v in pairs( tLib ) do
  if not fs.isDir(v) then
-  dofile("/apis/"..v)
+  dofile("/lib/"..v)
  end
 end
 
