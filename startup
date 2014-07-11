@@ -20,15 +20,7 @@ if OneOS then
 end
 
 
-if OneOS then
-    OneOS.CanClose = function()
-        if modified then
-            return false
-        else
-            return true
-        end
-    end
-end
+
 
 local function loadDeltaOS()
 
@@ -93,7 +85,4 @@ sleep(1.5)
 shell.run("/system/framework/desktop.lua")
 end
 
-local err = kernel.catnip(loadDeltaOS)
-if err ~= "noErr" then
- delta.bsod(err)
-end
+loadDeltaOS()
