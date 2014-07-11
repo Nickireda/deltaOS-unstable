@@ -88,9 +88,5 @@ shell.run("/system/framework/desktop.lua")
 end
 
 
-local err = kernel.catnip(loadDeltaOS)
-if err ~= "noErr" then
- delta.bsod(err)
-end
 
 
