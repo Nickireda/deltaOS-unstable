@@ -1,4 +1,4 @@
 {
-  [1] = "/system/media/cat.nfp"
+  [1] = "/system/media/cat.nfp";
   [2] = colors.lightGray
 }
