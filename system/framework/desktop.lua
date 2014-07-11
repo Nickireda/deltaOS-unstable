@@ -7,17 +7,31 @@ local height = kernel.y
 local ustring = "Update available."
 local ux=width-string.len(ustring)
 local function updateAvailableNotify()
+	local first = true
 	while true do
 		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 		
 		local  lb = tostring( latestBuild:readAll() )
 		if tonumber(latestBuild:readAll()) > build then
-			local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
-		        if ubox:autoCapturedEvents() == "ok" then
-		        	shell.run("/system/icons/update.exc")
-		        else
-		        	draw()
-		        end
+			if not first then
+				local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
+		        	if ubox:autoCapturedEvents() == "ok" then
+		        		shell.run("/system/icons/update.exc")
+		        	else
+		        		draw()
+		        	end
+			else
+	        		local ox,oy = term.getCursorPos()
+	        		local ob,ot = term.getBackgroundColor(),term.getTextColor()
+	        		mess="Update Avaliable!"
+	        		term.setCursorPos(width-#mess+1,1)
+	        		term.setBackgroundColor(colors.gray)
+	        		term.setTextColor(colors.black)
+	        		write(mess)
+	        		term.setCursorPos(ox,oy)
+	        		term.setBackgroundColor(ob)
+	        		term.setTextColor(ot)
+	        	end
 		end
 		sleep(16)
 	end
