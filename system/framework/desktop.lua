@@ -1,6 +1,6 @@
 os.pullEvent = os.pullEventRaw
 
-build = 44
+build = 45
 
 local width = kernel.x
 local height = kernel.y
@@ -167,7 +167,7 @@ else
 	graphics.cPrint("Login failed.")
 	print("")
 	lw.setCursorPos(1, ch/2)
-	if users.isUser(user) and users.getPassword(user) == false then
+	if users.isUser(user) == true and users.getPassword(user) == false then
 		graphics.cPrint("Password incorrect.")
 		sleep(0.6)
 		os.reboot()
