@@ -22,8 +22,10 @@ local function updateAvailableNotify()
 		        		
 		        		isDialog = false
 		        		shell.run("/system/icons/update.exc")
-		        	else   
+		        	elseif ubox:autoCaptureEvents() == "cancel" then   
 		        		isDialog = false
+		        		os.pullEvent("delta_redraw")
+		        	else
 		        		os.pullEvent("delta_redraw")
 		        		
 		        	end
