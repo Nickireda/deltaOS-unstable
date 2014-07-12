@@ -1,0 +1,40 @@
+function t(a) --Shortener for type
+  return type(a)
+end
+--Shortened versions of some types for type(thing)
+str,bool,func,tbl = "string","boolean","function","table"
+
+function tableIter(tableu,printMode) --This was in a program, but I'm enhancing it
+  if t(tableu) ~= tbl then
+    error("Expected table, got " .. t(tableu))
+  elseif t(printMode) ~= bool then
+    error("Expected boolean, got " .. t(printMode))
+  end
+  --Now for the real thing.
+  if printMode == true then
+    for i=1,#tableu do
+      print(tableu[i]
+    end
+  elseif printMode == false then
+    --Instead of nested fors, I decided to use some variables and a repeat
+    on = 1
+    lim = #utable
+    table = {}
+    repeat
+      table.insert(table,utable[on])
+      on=on+1
+    until on=lim
+  end
+end  --7 to 28 = 21 lines, because I did a good one.
+function drawBox(x,y,width,height,color)
+    w,h=term.getSize()
+    yo = y
+    repeat
+      paintutils.drawLine(x,yo,1,width,color)
+      yo=yo+1
+    until yo=height-h
+end    
+      
+    
+    
+  
