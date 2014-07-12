@@ -1,6 +1,8 @@
 os.pullEvent = os.pullEventRaw
 
-build = 45
+build = 46
+
+local isDialog = false
 
 local width = kernel.x
 local height = kernel.y
@@ -15,10 +17,15 @@ local function updateAvailableNotify()
 		if tonumber(lb) > build then
 			if first then
 				local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
+		        	isDialog = true
 		        	if ubox:autoCaptureEvents() == "ok" then
+		        		
+		        		isDialog = false
 		        		shell.run("/system/icons/update.exc")
-		        	else
-		        		draw()
+		        	else   
+		        		isDialog = false
+		        		os.pullEvent("delta_redraw")
+		        		
 		        	end
 		        	first=false
 			else
@@ -426,12 +433,22 @@ local function rServ()
 	end
 end
 
+local function drServ()
+	while true do
+		local event = os.pullEvent()
+		if event == "delta_redraw" then
+			draw()
+			ubox:redraw()
+		end
+	end
+end
 
 
 
 
 
-parallel.waitForAll(sleepServ, shellServ, rServ, updateAvailableNotify)
+
+parallel.waitForAll(sleepServ, shellServ, rServ, updateAvailableNotify, drServ)
 end
 
 end
