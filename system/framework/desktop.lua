@@ -438,7 +438,9 @@ local function drServ()
 		local event = os.pullEvent()
 		if event == "delta_redraw" then
 			draw()
-			ubox:redraw()
+			if isDialog then
+			 ubox:redraw()
+			end
 		end
 	end
 end
