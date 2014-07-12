@@ -6,46 +6,8 @@ local isDialog = false
 
 local width = kernel.x
 local height = kernel.y
-local ustring = "Update available."
-local ux=width-string.len(ustring)
-local function updateAvailableNotify()
-	local first = true
-	while true do
-		local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
-		
-		local  lb = tostring( latestBuild:readAll() )
-		if tonumber(lb) > build then
-			if first then
-				local ubox = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Update available!", "Build "..lb, "Would you like to update?"}, true,true)
-		        	isDialog = true
-		        	if ubox:autoCaptureEvents() == "ok" then
-		        		
-		        		isDialog = false
-		        		shell.run("/system/icons/update.exc")
-		        	elseif ubox:autoCaptureEvents() == "cancel" then   
-		        		isDialog = false
-		        		os.pullEvent("delta_redraw")
-		        	else
-		        		os.pullEvent("delta_redraw")
-		        		
-		        	end
-		        	first=false
-			else
-	        		local ox,oy = term.getCursorPos()
-	        		local ob,ot = term.getBackgroundColor(),term.getTextColor()
-	        		mess="Update Avaliable!"
-	        		term.setCursorPos(width-#mess+1,1)
-	        		term.setBackgroundColor(colors.gray)
-	        		term.setTextColor(colors.black)
-	        		write(mess)
-	        		term.setCursorPos(ox,oy)
-	        		term.setBackgroundColor(ob)
-	        		term.setTextColor(ot)
-	        	end
-		end
-		sleep(16)
-	end
-end	
+
+	
 		
 
 appsdir = "system/apps"
@@ -435,24 +397,13 @@ local function rServ()
 	end
 end
 
-local function drServ()
-	while true do
-		local event = os.pullEvent()
-		if event == "delta_redraw" then
-			draw()
-			if isDialog then
-			 ubox:redraw()
-			end
-		end
-	end
-end
 
 
 
 
 
 
-parallel.waitForAll(sleepServ, shellServ, rServ, updateAvailableNotify, drServ)
+parallel.waitForAll(sleepServ, shellServ, rServ
 end
 
 end
