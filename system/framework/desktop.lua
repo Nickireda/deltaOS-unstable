@@ -402,7 +402,7 @@ end
 
 
 
-parallel.waitForAll(sleepServ, shellServ, rServ
+parallel.waitForAll(sleepServ, shellServ, rServ)
 end
 
 end
