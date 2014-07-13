@@ -146,8 +146,8 @@ end
 local latest = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 if tonumber(latest.readAll()) > build then
 	graphics.drawImage("/system/media/delta.nfp", 1, 1)
-	term.current().setBackgroundColor(colors.lightBlue)
-	term.current().setCursorPos(1, kernel.y-1)
+	term.current().setBackgroundColor(colors.cyan)
+	term.current().setCursorPos(1, kernel.y-3)
 	graphics.cPrint("Updating...")
 	shell.run("/system/update")
 end
