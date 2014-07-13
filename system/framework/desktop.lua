@@ -149,7 +149,7 @@ if tonumber(latest.readAll()) > build then
 	term.current().setBackgroundColor(colors.lightBlue)
 	term.current().setCursorPos(1, kernel.y-1)
 	graphics.cPrint("Updating...")
-	shell.run("/system/framework/update", "-s")
+	shell.run("/system/update")
 end
 
 animations.wake()
