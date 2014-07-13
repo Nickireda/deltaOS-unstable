@@ -50,7 +50,7 @@ if not json then
         os.loadAPI("json")
 end
  
-if pre_dl then loadstring(pre_dl)() else print("Downloading files from github....") end
+if pre_dl then loadstring(pre_dl)() end
 local data = json.decode(http.get("https://api.github.com/repos/"..args[1].."/"..args[2].."/git/trees/"..args[3].."?recursive=1").readAll())
 if data.message and data.message == "Not found" then error("Invalid repository",2) else
 	for k,v in pairs(data.tree) do
