@@ -19,13 +19,16 @@ function tableIter(tableu,printMode) --This was in a program, but I'm enhancing 
     --Instead of nested fors, I decided to use some variables and a repeat
     on = 1
     lim = #utable
-    table = {}
+    atable = {}
     repeat
-      table.insert(table,utable[on])
+      table.insert(atable,utable[on])
       on=on+1
     until on=lim
+    if on==lim then
+      return atable
+    end  
   end
-end  --7 to 28 = 21 lines, because I did a good one.
+end
 function drawBox(x,y,width,height,color)
     w,h=term.getSize()
     yo = y
