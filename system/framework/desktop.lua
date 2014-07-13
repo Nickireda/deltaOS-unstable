@@ -84,16 +84,6 @@ term.redirect(lw)
 
 local lwx, lwy = lw.getSize()
 
-local latestBuild = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
-if tonumber(latestBuild:readAll()) > build then
-	graphics.reset(colors.white, colors.blue)
-	term.setCursorPos(1, lwx/2)
-	graphics.cPrint("Update? (y/n)")
-	inp=read()
-	if inp=="y" or inp=="Y" then
-		shell.run("/system/update")
-	end
-end
 
 while true do
 graphics.reset(colors.white, colors.black)
@@ -130,7 +120,7 @@ if users.isUser(user) == true and pass == users.getPassword(user) then
 	users.login(user)
 	lw.setVisible(false)
 	term.redirect( term.native() )
-	animations.wake()
+	
 else
 	local cw, ch = lw.getSize()
 	graphics.reset(colors.white, colors.black)
@@ -153,7 +143,16 @@ else
 	end
 end
 
---login()
+local latest = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
+if tonumber(latest.readAll()) > build then
+	graphics.drawImage("/system/media/delta.nfp", 1, 1)
+	term.current().setBackgroundColor(colors.lightBlue)
+	term.current().setCursorPos(1, kernel.y-1)
+	graphics.cPrint("Updating...")
+	shell.run("/system/framework/update", "-s")
+end
+
+animations.wake()
 	
 
 
