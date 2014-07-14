@@ -12,6 +12,8 @@ local tempTabName = nil
 
 --[ Local Functions ]--
 local function wrapTabs(num,dir,list)
+  if type(list) ~= 'table' then error('tabmulti-see line 17, list argument is wrong',2) end
+if type(num) ~= 'number' then error('tabmulti-see line 17, num argument is wrong',2) end
 	local i = num
 	if dir == 1 then
 		while i <= #list do
