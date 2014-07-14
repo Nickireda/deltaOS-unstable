@@ -1,3 +1,22 @@
+
+
+
+local function exitServ()
+ sleep(0.6)
+ paintutils.drawPixel(kernel.x, kernel.y)
+ term.setCursorPos(kernel.x, kernel.y)
+ write("X")
+ while true do
+ local e, b, x, y = os.pullEvent("mouse_click")
+ if x == kernel.x and y == kernel.y then
+  error()
+ end
+end
+
+
+
+local function main()
+
 graphics.reset(colors.white, colors.black)
 print("")
 graphics.cPrint("Delta Time Machine")
@@ -62,6 +81,7 @@ local function backup()
   fs.copy("/apps", "/"..dirs[folder].."/apps")
   fs.copy("/apis", "/"..dirs[folder].."/apis")
   fs.copy("/startup", "/"..dirs[folder].."/startup")
+  fs.copy("/home", "/"..dirs[folder].."/home")
   local x = fs.open(dirs[folder].."/.backup", "w")
   x.write("BACKUP MAKRER")
   x.close()
@@ -134,3 +154,11 @@ while true do
   restore()
  end
 end
+
+
+
+end
+
+
+
+parallel.waitForAll(main, exitServ)
