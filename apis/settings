@@ -23,7 +23,11 @@ function addSetting(setting, number, newValue)
  if set[number] then
   set[number] = nil
  end
- set[number] = newValue
+ if number ~= nil then
+  set[number] = newValue
+ elseif number == nil then
+  table.insert(set, newValue)
+ end
  
  get.write( textutils.serialize(set) )
  
