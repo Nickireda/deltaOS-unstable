@@ -27,6 +27,7 @@ function wake()
     graphics.drawLine(i, settings.getSetting("desktop", 2))
    else
     graphics.drawLine(i, colors.lightBlue)
+   end
   end
   os.sleep(0.01)
  end
