@@ -17,7 +17,7 @@ function addSetting(setting, number, newValue)
 
  local set = getSetting(setting)
 
- local get = fs.open("/home/settings"..setting, "w")
+ local get = fs.open("/home/settings/"..setting, "w")
  
  
  if set[number] then
