@@ -68,6 +68,7 @@ local function backup()
  end
  elseif dirs[1] == nil then
   graphics.cPrint("NO directories found.")
+  return
   sleep(1)
   shell.exit()
  end
@@ -153,7 +154,7 @@ local function restore()
    sleep(1)
    os.reboot()
   else
-   error()
+   return
   end
  end
  
@@ -164,8 +165,10 @@ while true do
  local e, b, x, y = os.pullEvent("mouse_click")
  if y == 5 then
   backup()
+  error()
  elseif y == 7 then
   restore()
+  error()
  end
 end
 
