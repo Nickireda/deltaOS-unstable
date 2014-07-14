@@ -20,8 +20,9 @@ function addSetting(setting, number, newValue)
  local get = fs.open("/home/settings"..setting, "w")
  
  
- 
- table.remove(set, number)
+ if set[number] then
+  table.remove(set, number)
+ end
  table.insert(set, number, setting)
  
  get.write( textutils.serialize(set) )
