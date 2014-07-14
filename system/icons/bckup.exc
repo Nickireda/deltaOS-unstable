@@ -1,5 +1,12 @@
 
-
+local function checkTable(table, string)
+ for i=1, #table do
+  if table[i] == string then
+   return true
+  end
+ end
+ return false
+end
 
 local function exitServ()
  sleep(0.6)
@@ -10,10 +17,6 @@ local function exitServ()
  local e, b, x, y = os.pullEvent()
  if event == "mouse_click" and x == kernel.x and y == kernel.y then
   error()
- elseif event == "redraw_x" or event == "rd_x" then
-  paintutils.drawPixel(kernel.x, kernel.y, colors.red)
-  term.setCursorPos(kernel.x, kernel.y)
-  write("X")
  end
 end
 end
@@ -44,7 +47,7 @@ local function backup()
  
  for _, dir in ipairs(fs.list("/")) do
   if dir ~= "users" and dir ~= "rom" and dir ~= "system" and dir ~= "apps" and dir ~= "apis" and dir ~= "lib" and dir ~= "home" then
-   if fs.isDir(dir) then
+   if fs.isDir(dir) and checkTable(dirs, dir) == false then
     table.insert(dirs, dir)
    end
   end
@@ -66,7 +69,7 @@ local function backup()
  elseif dirs[1] == nil then
   graphics.cPrint("NO directories found.")
   sleep(1)
-  error()
+  shell.exit()
  end
  
  paintutils.drawLine(2, cPos+2, kernel.x-1, cPos+2, colors.gray)
