@@ -162,7 +162,7 @@ dofile("/system/sApi/dialog")
 
 
 local function drawBar()
-	graphics.drawLine(1, colors.lightGray)
+	graphics.drawLine( 1, settings.getSetting("desktop", 3) )
 
 	term.current().setCursorPos( kernel.x-(kernel.x-1), kernel.y-(kernel.y-1))
 
