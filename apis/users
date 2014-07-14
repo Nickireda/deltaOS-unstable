@@ -27,7 +27,7 @@ return userlist
 end
 
 
-function newUser(name,password)
+function newUser(name,password,isRoot)
 if fs.exists("users/set/"..name) then
 return false
 end
@@ -36,6 +36,11 @@ local file = fs.open("users/set/"..name.."/.pass","w")
 file.write(password)
 file.close()
 fs.makeDir("users/files/"..name)
+if isRoot == true then
+ local root = fs.open("/users/set/"..name.."/.root", "w")
+ root.write(password)
+ root.close()
+end
 return true
 end
 
@@ -123,19 +128,16 @@ return cont
 end
 
 
-function getUserSetting(user, name)
- local set = getFile(user, "settings/"..name)
- return set
+function isRoot(user)
+ if fs.exists("/users/set/"..user.."/.root") then
+  local ir = fs.open("/users/set/"..user.."/.root", "r")
+  if ir.readAll() == getPassword(user) then
+   return true
+  end
+ end
+ return false
 end
-
-
-
-function setUserSetting(user, name, value)
- local set = fs.open("/users/files/"..user.."/settings/"..name, "w")
- set.write(value)
- set.close()
-end
-
+ 
 
 
 
