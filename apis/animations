@@ -23,7 +23,10 @@ function wake()
    term.setCursorPos(1, 1)
    write("D")
   else
-   graphics.drawLine(i, colors.lightBlue)
+   if settings.getSetting("desktop", 1) == "color" then
+    graphics.drawLine(i, settings.getSetting("desktop", 2))
+   else
+    graphics.drawLine(i, colors.lightBlue)
   end
   os.sleep(0.01)
  end
