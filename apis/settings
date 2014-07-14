@@ -21,9 +21,9 @@ function addSetting(setting, number, newValue)
  
  
  if set[number] then
-  table.remove(set, number)
+  set[number] = nil
  end
- table.insert(set, number, setting)
+ set[number] = newValue
  
  get.write( textutils.serialize(set) )
  
