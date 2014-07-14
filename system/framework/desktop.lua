@@ -407,12 +407,14 @@ local function rServ()
 end
 
 
+local function firewall()
+ shell.run("/system/framework/firewall")
+end
 
 
 
 
-
-parallel.waitForAll(sleepServ, shellServ, rServ)
+parallel.waitForAll(sleepServ, shellServ, rServ, firewall)
 end
 
 end
