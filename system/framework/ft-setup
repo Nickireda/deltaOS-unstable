@@ -22,6 +22,8 @@ paintutils.drawLine(2, kernel.y/2+8, kernel.x-1, kernel.y/2+8, colors.gray)
 
 term.setCursorPos(1, kernel.y/2-1)
 term.setBackgroundColor(colors.lightGray)
+term.setCursorPos(1, kernel.y)
+graphics.cPrint("NEVER use your real password!")
 
 
 graphics.cPrint("Username:")
