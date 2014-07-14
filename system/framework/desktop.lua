@@ -222,7 +222,17 @@ local function drawGrid()
 end
 
 local function draw(ua)
-graphics.reset( colors.lightBlue, colors.black )
+
+local isI = false
+
+if settings.getSetting("desktop", 1) == "color" then
+	isI = true
+	graphics.reset( settings.getSetting("desktop", 2 ), colors.black )
+elseif settings.getSetting("desktop", 1) == "image" then
+	graphics.drawImage(settings.getSetting("desktop", 2), 1, 2)
+end
+	
+
 term.current().setCursorPos(kernel.x-(kernel.x-1), 1)
 if ua==nil then ua=true end
 drawBar()
@@ -231,8 +241,8 @@ if grid then drawGrid() end
 drawApps()
 
 if isUnstable then
- term.current().setBackgroundColor( colors.lightBlue )
- term.current().setCursorPos(kernel.x-string.len(fullBuildName)+1, kernel.y)
+ term.current().setBackgroundColor( settings.getSetting("desktop", 3) )
+ term.current().setCursorPos(kernel.x-string.len(fullBuildName)+1, 1)
  write(fullBuildName)
  term.current().setCursorPos(1, 1)
 end
