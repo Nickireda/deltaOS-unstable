@@ -1,0 +1,34 @@
+--Delta Firewall, by HAX0R
+
+local r = rednet.receive
+
+local function checkTable(table, whatever)
+ for i=1, #table do
+  if table[i] == whatever then
+   return true
+  end
+ end
+ return false
+end
+
+
+local blockedIDs = settings.getSetting("firewall_blockID")
+local blockedMsg = settings.getSetting("firewall_blockMSG")
+
+function rednet.receive(protocol, timeout)
+ 
+ local id, msg, dis = r(protocol or nil, timeout or nil)
+ if checkTable(blockedIDs, id) == true then
+  return 0, msg, dis
+ elseif checkTable(blockedMsg, msg) == true then
+  return id, "BLOCKED_MSG", dis
+ end
+ 
+ if msg == nil or msg == true or msg == false then
+  return id, "EXPLOIT_BLOCKED:ANAVRINS", dis
+ end
+
+ return id, msg, dis
+ 
+end
+
