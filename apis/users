@@ -5,19 +5,28 @@ local cu = file.readLine()
 file.close()
 return cu
 end
+
+
+
 function login(name)
   local file = fs.open("/users/.cu","w")
 file.write(name)
 file.close()
 return true
 end
+
+
 function logOut()
 fs.delete("user/.cu")
 end
+
+
 function getUsers()
 local userlist=fs.list("users/set/")
 return userlist
 end
+
+
 function newUser(name,password)
 if fs.exists("users/set/"..name) then
 return false
@@ -29,12 +38,16 @@ file.close()
 fs.makeDir("users/files/"..name)
 return true
 end
+
+
 function getPassword(name)
 local file2 = fs.open("users/set/"..name.."/.pass","r")
 local pass = file2.readLine()
 file2.close()
 return pass
 end
+
+
 function changePass(name,newpass)
 if not fs.exists("users/set/"..name.."/.pass") then
 return false
@@ -44,6 +57,8 @@ file.write(newpass)
 file.close()
 return true
 end
+
+
 function deleteUser(name)
 if not fs.exists("users/set/"..name) then
 return false
@@ -52,6 +67,8 @@ fs.delete("users/set/"..name)
 fs.delete("users/files/"..name)
 return true
 end
+
+
 function changeName(oldname,newname)
 if not fs.exists("users/set/"..oldname) then
 return false
@@ -63,13 +80,17 @@ fs.move("users/set/"..oldname,"users/set/"..newname)
 fs.move('users/files/'..oldname,'users/files/'..newname)
 return true
 end
+
+
 function isUser(name)
-if fs.exists("users/set/"..name) then
+if fs.isDir("users/set/"..name) then
 return true
 else
 return false
 end
 end
+
+
 function getFiles(name)
 if not fs.exists("users/files/"..name) then
 return false
@@ -77,6 +98,8 @@ end
 local list = fs.list("users/files/"..name.."/")
 return list
 end
+
+
 function clearFiles(name)
 if not fs.exists("users/files/"..name) then
 return false
@@ -87,6 +110,8 @@ fs.delete("users/files/"..name.."/"..v)
 end
 return true
 end
+
+
 function getFile(name,filename)
 if not fs.exists('users/files/'..name..'/'..filename) then
 return false
