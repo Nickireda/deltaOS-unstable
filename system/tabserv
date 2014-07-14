@@ -16,7 +16,7 @@ local tempTabName = nil
 local tabProgs = {}
 
 os.loadAPI("/apis/kernel")
-os.loadAPI("/apis/dialog")
+os.loadAPI("/system/sApi/dialog")
 
 --[ Local Functions ]--
 local function wrapTabs(num,dir,list)
