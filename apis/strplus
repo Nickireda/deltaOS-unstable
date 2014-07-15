@@ -23,7 +23,7 @@ function fromCharTable(table)
   end
   return str
 end
-function separate(str,separator)
+function split(str,separator)
   if type(str) ~= "string" then
     error("String needed, got "..type(str))
   elseif type(separator) ~= "string" then
