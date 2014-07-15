@@ -128,7 +128,7 @@ else
 	graphics.cPrint("Login failed.")
 	print("")
 	lw.setCursorPos(1, ch/2)
-	if users.isUser(user) == true and users.getPassword(user) == false then
+	if users.isUser(user) == true and users.getPassword(user) ~= pass then
 		graphics.cPrint("Password incorrect.")
 		sleep(0.6)
 		os.reboot()
