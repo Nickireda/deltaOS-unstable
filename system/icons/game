@@ -1,0 +1,546 @@
+	
+
+    -- This code Was Created by Nickireda and Omnislashe
+    -- Please Do not Steal or claim it as your own
+     
+     
+    if turtle then
+      print("Why are you playing this on a turtle?")
+      sleep(1.5)
+    end
+     
+    if pocket then
+      print("This game is not supported on pocket computers")
+      print("Please Check out ACUG Poket Edition")
+    end
+     
+    LastUpdate = ('7/12/2014')
+    cps = 0
+    clicks = 0
+    clickMult = 1
+    cookies = 0
+    interval = 0
+    bag=0
+    ng=0
+    sg=0
+    utgg=0
+    nm=0
+    exitfr=0
+    timestwo = 1000
+    fiveClick=50
+    five2Click=200
+    shopVar = false
+    menuVar = false
+    pur = 0
+     
+    logo = paintutils.loadImage('/system/extras/cookieclicker/logo')
+    upbutton = paintutils.loadImage('/system/extras/cookieclicker/upgradebutton')
+    --upbutton2 = paintutils.loadImage('upgradebutton')
+    --upbutton3 = paintutils.loadImage('upgradebutton')
+    --upbutton4 = paintutils.loadImage('upgradebutton')
+    --upbutton5 = paintutils.loadImage('upgradebutton')
+    --cctext = paintutils.loadImage('/system/extras/cookieclickertext')
+    cookie = paintutils.loadImage('/system/extras/cookieclicker/cookie')
+    shopicon = paintutils.loadImage('/system/extras/cookieclicker/shop')
+     
+    function startup()
+      term.setBackgroundColor(colors.lime)
+      term.clear()
+      term.setCursorPos(1,1)
+      paintutils.drawImage(logo, 2, 1)
+    end
+    startup()
+    sleep(3)
+    function game()
+      shopVar = false
+      menuVar = false
+      term.setBackgroundColor(colors.lime)
+      term.clear()
+      term.setCursorPos(1,1)
+      paintutils.drawImage(cookie, 2, 1)
+      paintutils.drawImage(upbutton, 25, 1)
+      paintutils.drawImage(upbutton, 25, 4)
+      paintutils.drawImage(upbutton, 25, 7)
+      paintutils.drawImage(upbutton, 25, 10)
+      paintutils.drawImage(upbutton, 25, 14)
+     -- paintutils.drawImage(cctext, 1, 16)
+      paintutils.drawImage(shopicon, 1, 17)
+      term.setCursorPos(1,1)
+      print("Menu")
+      term.setCursorPos(2,14)
+      print("Cookies:" .. cookies)
+      term.setCursorPos(2,15)
+      print("CpS:" .. cps)
+      term.setCursorPos(2,16)
+      print("Cookie Clicks:" .. clicks)
+      term.setCursorPos(32,3)
+      print("Below Average")
+      term.setCursorPos(32,4)
+      print("Grandma($15)")
+      term.setCursorPos(24,3)
+      print("("..bag..")")
+      term.setCursorPos(32,6)
+      print("Normal Grandma")
+      term.setCursorPos(32,7)
+      print("($100)")
+      term.setCursorPos(24,6)
+      print("("..ng..")")
+      term.setCursorPos(32,9)
+      print("Kitten Grandma")
+      term.setCursorPos(32,10)
+      print("($500")
+      term.setCursorPos(24,9)
+      print("("..sg..")")
+      term.setCursorPos(32,12)
+      print("Ultimate Time")
+      term.setCursorPos(32,13)
+      print("Traveling God")
+      term.setCursorPos(32,14)
+      print("Grandma($1000000)")
+      term.setCursorPos(24,12)
+      print("("..utgg..")")
+      term.setCursorPos(32,16)
+      print("Notch's Grandma")
+      term.setCursorPos(32,17)
+      print("($10000000)")
+      term.setCursorPos(24,16)
+      print("("..nm..")")
+    end
+     
+    function clickcookie()
+      clickTimer = os.startTimer(1)
+     
+      while true do
+     
+        local e = { os.pullEvent() }
+        local event = e[1]
+        if exitfr == 1 then
+          term.setBackgroundColor(colors.black)
+          term.clear()
+          term.setCursorPos(1,1)    
+        break end
+       
+        if event == "mouse_click" then
+          local click, xPos, yPos = e[2], e[3], e[4]
+         
+          if xPos >= 3 and xPos <= 20 and yPos >= 2 and yPos <= 12 then
+            cookies=cookies + clickMult
+            clicks = clicks + 1
+            game()
+          elseif xPos >= 28 and xPos <=31 and yPos >= 2 and yPos <= 4 then
+            bagma()
+            game()
+           elseif xPos >= 28 and xPos <= 31 and yPos >= 5 and yPos <= 7 then
+             normma()
+             game()
+           elseif xPos >= 28 and xPos <= 31 and yPos >= 8 and yPos <= 10 then
+             aagma()
+             game()
+           elseif xPos >= 28 and xPos <= 31 and yPos >= 11 and yPos <= 13    then
+            tggma()
+            game()  
+           elseif xPos >=1 and xPos <= 4 and yPos == 1 then
+            IGmenu()
+           elseif xPos >=28 and xPos <= 31 and yPos >= 14 and yPos >= 16 then
+            notchma()
+            game()
+           elseif xPos >= 1 and xPos <= 3 and yPos >= 17 and yPos <= 19 then
+            shop()
+             else
+            shopVar = false
+            menuVar = false
+            game()
+          end
+       
+        elseif event == "timer" then
+          if e[2] == clickTimer then
+            clickTimer = os.startTimer(1)
+            if shopVar == false then
+              ac()
+              game()                                  
+            elseif menuVar == false then
+               ac()
+               game()
+              else ac()                    
+            end
+          end
+        end
+      end
+    end
+    function IGmenu()
+    menuVar = true
+    term.setCursorPos(4,2)
+      print("**********")
+    term.setCursorPos(4,3)
+      print("   save   ")
+    term.setCursorPos(4,4)
+      print("   load   ")
+    term.setCursorPos(4,5)
+      print("   stats  ")
+    term.setCursorPos(4,6)
+      print("   exit   ")
+    term.setCursorPos(4,7)
+      print("   about  ")
+    term.setCursorPos(4,8)
+      print("**********")
+     
+     
+      local event, click, x, y = os.pullEvent("mouse_click")
+        if x >= 6 and x <= 10 and y == 3 then save()
+        elseif x >= 6 and x <= 10 and y == 4 then load()
+        elseif x >= 6 and x <= 11 and y == 5 then stats()
+        elseif x >= 6 and x <= 10 and y == 6 then exit()
+        elseif x >= 6 and x <= 11 and y == 7 then about()
+        else
+         
+        game()
+      end
+      clickTimer = os.startTimer(1)
+    end
+    function save()
+    menuVar = true
+    term.setCursorPos(10,8)
+      print("***************")
+    term.setCursorPos(10,9)
+      print(" Are you sure? ")
+    term.setCursorPos(10,10)
+      print("    (y/n)     ")
+    term.setCursorPos(10,11)
+      print("***************")
+        local event, key = os.pullEvent("key")
+          if key == 21 then
+          fs.delete("/system/extras/cookieclicker/Scookies")
+          fs.copy('/system/extras/cookieclicker/Temp','/system/extras/cookieclicker/Scookies')
+         
+          Scookies = fs.open('/system/extras/cookieclicker/Scookies', 'w')
+          Scookies.write(cookies)
+          Scookies.close()
+         
+          fs.delete("/system/extras/cookieclicker/Sclicks")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sclicks")
+         
+          Sclicks = fs.open("/system/extras/cookieclicker/Sclicks", 'w')
+          Sclicks.write(clicks)
+          Sclicks.close()
+         
+          fs.delete("/system/extras/cookieclicker/Scps")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Scps")
+         
+          Scps = fs.open("/system/extras/cookieclicker/Scps", 'w')
+          Scps.write(cps)
+          Scps.close()
+         
+          fs.delete("/system/extras/cookieclicker/Sbag")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sbag")
+         
+          Sbag = fs.open("/system/extras/cookieclicker/Sbag", 'w')
+          Sbag.write(bag)
+          Sbag.close()
+         
+          fs.delete("/system/extras/cookieclicker/Sng")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sng")
+         
+          Sng = fs.open("/system/extras/cookieclicker/Sng", 'w')
+          Sng.write(ng)
+          Sng.close()
+         
+          fs.delete("/system/extras/cookieclicker/Ssg")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Ssg")
+         
+          Ssg = fs.open("/system/extras/cookieclicker/Ssg", 'w')
+          Ssg.write(sg)
+          Ssg.close()
+         
+          fs.delete("/system/extras/cookieclicker/Sutgg")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sutgg")
+         
+          Sutgg = fs.open("/system/extras/cookieclicker/Sutgg", 'w')
+          Sutgg.write(utgg)
+          Sutgg.close()
+         
+          fs.delete("/system/extras/cookieclicker/Snm")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Snm")
+         
+          Snm = fs.open("/system/extras/cookieclicker/Snm", 'w')
+          Snm.write(nm)
+          Snm.close()
+          menuVar = false
+          game()
+          elseif key == 49 then menuVar = false
+          game()
+          else save()
+       end
+    end
+    function load()
+      menuVar = true
+      term.setCursorPos(10,8)
+      print("***************")
+      term.setCursorPos(10,9)
+      print(" Are you sure? ")
+      term.setCursorPos(10,10)
+      print("     (y/n)     ")
+      term.setCursorPos(10,11)
+      print("***************")
+        local event, key = os.pullEvent("key")
+         if key == 21 then
+           
+           Lcookies = fs.open('/system/extras/cookieclicker/Scookies','r')
+           cookies = Lcookies.readAll()
+           Lcookies.close()
+           
+           Lclicks = fs.open('/system/extras/cookieclicker/Sclicks','r')
+           clicks = Lclicks.readAll()
+           Lclicks.close()
+           
+           Lcps = fs.open('/system/extras/cookieclicker/Scps','r')
+           cps = Lcps.readAll()
+           Lcps.close()
+           
+           Lbag = fs.open('/system/extras/cookieclicker/Sbag','r')
+           bag = Lbag.readAll()
+           Lbag.close()
+           
+           Lng = fs.open('/system/extras/cookieclicker/Sng','r')
+           ng = Lng.readAll()
+           Lng.close()
+           
+           Lsg = fs.open('/system/extras/cookieclicker/Ssg','r')
+           sg = Lsg.readAll()
+           Lsg.close()
+           
+           Lutgg = fs.open('/system/extras/cookieclicker/Sutgg','r')
+           utgg = Lutgg.readAll()
+           Lutgg.close()
+           
+           Lnm = fs.open('/system/extras/cookieclicker/Snm','r')
+           nm = Lnm.readAll()
+           Lnm.close()
+           
+           menuVar = false
+           game()
+           
+         elseif key == 49 then
+           menuVar = false
+           game()
+          else
+           load()
+       end
+    end
+     
+    function stats()
+    menuVar = true
+      tClicks = fs.open('/system/extras/cookieclicker/totalClicks', 'r')
+      tCookies = fs.open('/system/extras/cookieclicker/totalCookies', 'r')
+      tCps = fs.open('/system/extras/cookieclicker/totalCps', 'r')
+      tPur = fs.open('/system/extras/cookieclicker/totalPur','r')
+      term.setCursorPos(10,8)
+      print("******************")
+      term.setCursorPos(10,9)
+      print("Total Clicks:"..(tonumber(tClicks.readAll()) or 0 )+clicks.."    ")
+      term.setCursorPos(10,10)
+      print("Total Cookies:"..(tonumber(tCookies.readAll()) or 0 )+cookies.."   ")
+      term.setCursorPos(10,11)
+      print("Total Cps:"..(tonumber(tCps.readAll()) or 0 )+cps.."       ")
+      term.setCursorPos(10,12)
+      print("Total Purchases:"..(tonumber(tPur.readAll()) or 0)+pur.."  ")
+      term.setCursorPos(10,13)
+      print("(Press any key)   ")
+      term.setCursorPos(10,14)
+      print("******************")
+        local event, key = os.pullEvent('key')
+        menuVar = false
+        tClicks.close()
+        tCookies.close()
+        tCps.close()
+        tPur.close()
+        game()
+    end
+    function about()
+    menuVar = true
+      term.setCursorPos(10,8)
+      print("*****************")
+      term.setCursorPos(10,9)
+      print("  This game was  ")
+      term.setCursorPos(10,10)
+      print("   Created by    ")
+      term.setCursorPos(10,11)
+      print("  Nickireda and  ")
+      term.setCursorPos(10,12)
+      print("   Omnislashe!   ")
+      term.setCursorPos(10,13)
+      print(" With major help ")
+      term.setCursorPos(10,14)
+      print(" by EternityCoder")
+      term.setCursorPos(10,15)
+      print("  Last Update:   ")
+      term.setCursorPos(10,16)
+      print("   "..LastUpdate.."  ")
+      term.setCursorPos(10,17)
+      print("  (Press Enter)  ")
+      term.setCursorPos(10,18)
+      print("*****************")
+        local event, key = os.pullEvent("key")
+          if key == 28 then
+          menuVar = false
+          game()
+          else  
+          menuVar = false    
+          game()
+       end
+    end
+    function exit()
+    menuVar = true
+      term.setCursorPos(10,8)
+      print("***************")
+      term.setCursorPos(10,9)
+      print(" Are you sure? ")
+      term.setCursorPos(10, 10)
+      print("     (y/n)     ")
+      term.setCursorPos(10,11)
+      print("***************")
+        local event, key = os.pullEvent("key")
+          if key == 21 then
+          -- total cookies
+          TS1 = fs.open("/system/extras/cookieclicker/totalCookies","r")
+          TST1 = tonumber(TS1.readAll())
+          TST1 = (TST1 or 0)+ cookies
+          TS1.close()
+         
+          TS2 = fs.open("/system/extras/cookieclicker/totalCookies","w")
+          TS2.write(TST1)
+          TS2.close()
+          -- total clicks
+          TS3 = fs.open("/system/extras/cookieclicker/totalClicks","r")
+          TST3 = tonumber(TS3.readAll())
+          TST3 = (TST3 or 0)+ clicks
+          TS3.close()
+         
+          TS4 = fs.open("/system/extras/cookieclicker/totalClicks","w")
+          TS4.write(TST3)
+          TS4.close()
+          -- total Cps
+          TS5 = fs.open("/system/extras/cookieclicker/totalCps","r")
+          TST5 = tonumber(TS5.readAll())
+          TST5 = (TST5 or 0)+ cps
+          TS5.close()
+         
+          TS6 = fs.open("/system/extras/cookieclicker/totalCps","w")
+          TS6.write(TST5)
+          TS6.close()
+          -- total Purch
+          TS7 = fs.open("/system/extras/cookieclicker/totalPur","r")
+          TST7 = tonumber(TS7.readAll())
+          TST7 = (TST7 or 0)+ pur
+          TS6.close()
+         
+          TS8 = fs.open("/system/extras/cookieclicker/totalPur","w")
+          TS8.write(TST7)
+          TS8.close()
+         
+         
+            term.setBackgroundColor(colors.black)
+            term.clear()
+            term.setCursorPos(1,1)
+            exitfr=1
+           
+          elseif key == 49 then menuVar = false game()
+          else
+         
+         
+          exit()
+       end
+    end
+     
+     
+    -- all purchase funcs
+    function bagma()
+    if cookies >= 15 then
+    cookies = cookies - 15
+    cps = cps + 0.1
+    bag=bag+1
+    pur=pur+1
+    else game()
+    end
+    end
+     
+    function normma()
+    if cookies >= 100 then
+    cookies = cookies - 100
+    cps = cps + 0.5
+    ng=ng+1
+    pur=pur+1
+    else game()
+    end
+    end
+     
+    function aagma()
+    if cookies >= 500 then
+    cookies = cookies - 500
+    cps = cps + 8
+    sg=sg+1
+    pur=pur+1
+    else game()
+    end
+    end
+     
+    function tggma()
+      if cookies >= 1000000 then
+        cookies = cookies - 1000000
+        cps = cps + 10000
+        utgg=utgg+1
+        pur=pur+1
+      end
+    end
+     
+    function notchma()
+      if cookies >= 10000000 then
+        cookies = cookies - 10000000
+         cps = cps + 100000
+         nm=nm +1
+         pur=pur+1
+       end
+     end
+    function shop()
+      shopVar = true
+      term.setBackgroundColor(colors.black)
+      term.clear()
+      term.setCursorPos(1,1)
+      print("<exit>****************<Shop>***********************")
+      print("Cookies:"..cookies.." ")      
+      print("() Times 2 Cps($"..timestwo..")")
+      term.setCursorPos(1,5)
+      print("() Add 5 to every Cookie Click($"..fiveClick..")")
+      term.setCursorPos(1,7)
+      print("() Add 20 to every Cookie Click($"..five2Click..")")
+      print("***************************************************")  
+        local event, click, x, y = os.pullEvent('mouse_click')
+          if x >= 1 and x <= 6 and y == 1 then shopVar = false game()
+          elseif cookies >= timestwo and
+           y == 3 and x >= 1 and x <= 2 then cookies = cookies - timestwo
+            cps = cps * 2
+            timestwo = timestwo * 10
+            pur=pur+1
+            shop()
+          elseif cookies >= fiveClick and y == 5 and x >= 1 and x <= 2 then
+            cookies = cookies - fiveClick
+            clickMult = clickMult + 5
+            fiveClick = fiveClick + 50
+            pur = pur +1
+            shop()
+          elseif cookies >= five2Click and y == 7 and x >=1 and x <=2 then
+            clickMult = clickMult + 20
+            cookies = cookies - five2Click
+            five2Click = five2Click + 200
+            pur = pur +1
+            shop()
+          else shop()
+       end
+       clickTimer = os.startTimer(1)
+    end
+     
+    function ac()
+      cookies = cookies + cps
+    end
+    clickcookie()
+    game()
+
