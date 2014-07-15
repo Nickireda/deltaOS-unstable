@@ -15,7 +15,7 @@ if ta[1] ~= "addID" and ta[1] ~= "delID" and ta[1] ~= "addMsg" and ta[1] ~= "del
 end
 
 local bid = settings.getSetting("firewall_blockID")
-local bmsg = setting.getSetting("firewall_blockMsg")
+local bmsg = settings.getSetting("firewall_blockMsg")
 
 if ta[1] == "addID" or ta[1] == "delID" then
  ta[1] = tonumber(ta[1])
