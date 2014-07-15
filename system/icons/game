@@ -33,15 +33,15 @@
     menuVar = false
     pur = 0
      
-    logo = paintutils.loadImage('cookieclicker/logo')
-    upbutton = paintutils.loadImage('cookieclicker/upgradebutton')
+    logo = paintutils.loadImage('/system/extras/cookieclicker/logo')
+    upbutton = paintutils.loadImage('/system/extras/cookieclicker/upgradebutton')
     --upbutton2 = paintutils.loadImage('upgradebutton')
     --upbutton3 = paintutils.loadImage('upgradebutton')
     --upbutton4 = paintutils.loadImage('upgradebutton')
     --upbutton5 = paintutils.loadImage('upgradebutton')
-    --cctext = paintutils.loadImage('cookieclickertext')
-    cookie = paintutils.loadImage('cookieclicker/cookie')
-    shopicon = paintutils.loadImage('cookieclicker/shop')
+    --cctext = paintutils.loadImage('/system/extras/cookieclickertext')
+    cookie = paintutils.loadImage('/system/extras/cookieclicker/cookie')
+    shopicon = paintutils.loadImage('/system/extras/cookieclicker/shop')
      
     function startup()
       term.setBackgroundColor(colors.lime)
@@ -209,59 +209,59 @@
       print("***************")
         local event, key = os.pullEvent("key")
           if key == 21 then
-          fs.delete("cookieclicker/Scookies")
-          fs.copy('cookieclicker/Temp','cookieclicker/Scookies')
+          fs.delete("/system/extras/cookieclicker/Scookies")
+          fs.copy('/system/extras/cookieclicker/Temp','/system/extras/cookieclicker/Scookies')
          
-          Scookies = fs.open('cookieclicker/Scookies', 'w')
+          Scookies = fs.open('/system/extras/cookieclicker/Scookies', 'w')
           Scookies.write(cookies)
           Scookies.close()
          
-          fs.delete("cookieclicker/Sclicks")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Sclicks")
+          fs.delete("/system/extras/cookieclicker/Sclicks")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sclicks")
          
-          Sclicks = fs.open("cookieclicker/Sclicks", 'w')
+          Sclicks = fs.open("/system/extras/cookieclicker/Sclicks", 'w')
           Sclicks.write(clicks)
           Sclicks.close()
          
-          fs.delete("cookieclicker/Scps")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Scps")
+          fs.delete("/system/extras/cookieclicker/Scps")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Scps")
          
-          Scps = fs.open("cookieclicker/Scps", 'w')
+          Scps = fs.open("/system/extras/cookieclicker/Scps", 'w')
           Scps.write(cps)
           Scps.close()
          
-          fs.delete("cookieclicker/Sbag")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Sbag")
+          fs.delete("/system/extras/cookieclicker/Sbag")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sbag")
          
-          Sbag = fs.open("cookieclicker/Sbag", 'w')
+          Sbag = fs.open("/system/extras/cookieclicker/Sbag", 'w')
           Sbag.write(bag)
           Sbag.close()
          
-          fs.delete("cookieclicker/Sng")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Sng")
+          fs.delete("/system/extras/cookieclicker/Sng")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sng")
          
-          Sng = fs.open("cookieclicker/Sng", 'w')
+          Sng = fs.open("/system/extras/cookieclicker/Sng", 'w')
           Sng.write(ng)
           Sng.close()
          
-          fs.delete("cookieclicker/Ssg")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Ssg")
+          fs.delete("/system/extras/cookieclicker/Ssg")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Ssg")
          
-          Ssg = fs.open("cookieclicker/Ssg", 'w')
+          Ssg = fs.open("/system/extras/cookieclicker/Ssg", 'w')
           Ssg.write(sg)
           Ssg.close()
          
-          fs.delete("cookieclicker/Sutgg")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Sutgg")
+          fs.delete("/system/extras/cookieclicker/Sutgg")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Sutgg")
          
-          Sutgg = fs.open("cookieclicker/Sutgg", 'w')
+          Sutgg = fs.open("/system/extras/cookieclicker/Sutgg", 'w')
           Sutgg.write(utgg)
           Sutgg.close()
          
-          fs.delete("cookieclicker/Snm")
-          fs.copy("cookieclicker/Temp", "cookieclicker/Snm")
+          fs.delete("/system/extras/cookieclicker/Snm")
+          fs.copy("/system/extras/cookieclicker/Temp", "/system/extras/cookieclicker/Snm")
          
-          Snm = fs.open("cookieclicker/Snm", 'w')
+          Snm = fs.open("/system/extras/cookieclicker/Snm", 'w')
           Snm.write(nm)
           Snm.close()
           menuVar = false
@@ -284,35 +284,35 @@
         local event, key = os.pullEvent("key")
          if key == 21 then
            
-           Lcookies = fs.open('cookieclicker/Scookies','r')
+           Lcookies = fs.open('/system/extras/cookieclicker/Scookies','r')
            cookies = Lcookies.readAll()
            Lcookies.close()
            
-           Lclicks = fs.open('cookieclicker/Sclicks','r')
+           Lclicks = fs.open('/system/extras/cookieclicker/Sclicks','r')
            clicks = Lclicks.readAll()
            Lclicks.close()
            
-           Lcps = fs.open('cookieclicker/Scps','r')
+           Lcps = fs.open('/system/extras/cookieclicker/Scps','r')
            cps = Lcps.readAll()
            Lcps.close()
            
-           Lbag = fs.open('cookieclicker/Sbag','r')
+           Lbag = fs.open('/system/extras/cookieclicker/Sbag','r')
            bag = Lbag.readAll()
            Lbag.close()
            
-           Lng = fs.open('cookieclicker/Sng','r')
+           Lng = fs.open('/system/extras/cookieclicker/Sng','r')
            ng = Lng.readAll()
            Lng.close()
            
-           Lsg = fs.open('cookieclicker/Ssg','r')
+           Lsg = fs.open('/system/extras/cookieclicker/Ssg','r')
            sg = Lsg.readAll()
            Lsg.close()
            
-           Lutgg = fs.open('cookieclicker/Sutgg','r')
+           Lutgg = fs.open('/system/extras/cookieclicker/Sutgg','r')
            utgg = Lutgg.readAll()
            Lutgg.close()
            
-           Lnm = fs.open('cookieclicker/Snm','r')
+           Lnm = fs.open('/system/extras/cookieclicker/Snm','r')
            nm = Lnm.readAll()
            Lnm.close()
            
@@ -329,10 +329,10 @@
      
     function stats()
     menuVar = true
-      tClicks = fs.open('cookieclicker/totalClicks', 'r')
-      tCookies = fs.open('cookieclicker/totalCookies', 'r')
-      tCps = fs.open('cookieclicker/totalCps', 'r')
-      tPur = fs.open('cookieclicker/totalPur','r')
+      tClicks = fs.open('/system/extras/cookieclicker/totalClicks', 'r')
+      tCookies = fs.open('/system/extras/cookieclicker/totalCookies', 'r')
+      tCps = fs.open('/system/extras/cookieclicker/totalCps', 'r')
+      tPur = fs.open('/system/extras/cookieclicker/totalPur','r')
       term.setCursorPos(10,8)
       print("******************")
       term.setCursorPos(10,9)
@@ -401,39 +401,39 @@
         local event, key = os.pullEvent("key")
           if key == 21 then
           -- total cookies
-          TS1 = fs.open("cookieclicker/totalCookies","r")
+          TS1 = fs.open("/system/extras/cookieclicker/totalCookies","r")
           TST1 = tonumber(TS1.readAll())
           TST1 = (TST1 or 0)+ cookies
           TS1.close()
          
-          TS2 = fs.open("cookieclicker/totalCookies","w")
+          TS2 = fs.open("/system/extras/cookieclicker/totalCookies","w")
           TS2.write(TST1)
           TS2.close()
           -- total clicks
-          TS3 = fs.open("cookieclicker/totalClicks","r")
+          TS3 = fs.open("/system/extras/cookieclicker/totalClicks","r")
           TST3 = tonumber(TS3.readAll())
           TST3 = (TST3 or 0)+ clicks
           TS3.close()
          
-          TS4 = fs.open("cookieclicker/totalClicks","w")
+          TS4 = fs.open("/system/extras/cookieclicker/totalClicks","w")
           TS4.write(TST3)
           TS4.close()
           -- total Cps
-          TS5 = fs.open("cookieclicker/totalCps","r")
+          TS5 = fs.open("/system/extras/cookieclicker/totalCps","r")
           TST5 = tonumber(TS5.readAll())
           TST5 = (TST5 or 0)+ cps
           TS5.close()
          
-          TS6 = fs.open("cookieclicker/totalCps","w")
+          TS6 = fs.open("/system/extras/cookieclicker/totalCps","w")
           TS6.write(TST5)
           TS6.close()
           -- total Purch
-          TS7 = fs.open("cookieclicker/totalPur","r")
+          TS7 = fs.open("/system/extras/cookieclicker/totalPur","r")
           TST7 = tonumber(TS7.readAll())
           TST7 = (TST7 or 0)+ pur
           TS6.close()
          
-          TS8 = fs.open("cookieclicker/totalPur","w")
+          TS8 = fs.open("/system/extras/cookieclicker/totalPur","w")
           TS8.write(TST7)
           TS8.close()
          
