@@ -11,7 +11,7 @@
      
     if pocket then
       print("This game is not supported on pocket computers")
-      print("Please Check out ACUG Poket Edition")
+      print("Please Check out ACUG Pocket Edition")
     end
      
     LastUpdate = ('7/12/2014')
