@@ -20,14 +20,9 @@ function addSetting(setting, number, newValue)
  local get = fs.open("/home/settings/"..setting, "w")
  
  
- if set[number] then
-  set[number] = nil
- end
- if number ~= nil then
-  set[number] = newValue
- elseif number == nil then
-  table.insert(set, newValue)
- end
+ 
+ 
+ set[number] = newValue
  
  get.write( textutils.serialize(set) )
  
