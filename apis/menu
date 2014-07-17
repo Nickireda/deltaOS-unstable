@@ -1,0 +1,45 @@
+local menu = {}
+local mt = {}
+
+function new(x,y,w)
+  local a = menu:new(x,y,w)
+  return a
+end
+
+function menu:new(x,y,w)
+  w=w or 15
+  local o = {}
+  o.x,o.y,o.w = x,y,w
+  o.btns = {}
+  local m = setmetatable(o,mt)
+  return o
+end
+
+function menu:addMenuButton(text,func)
+  table.insert(self.btns,{text,func})
+end
+
+function menu:captureButton()
+--  for k,v in pairs(self) do print(k) end
+  for i=1,#self.btns do
+    paintutils.drawLine(self.x,i+self.y-1,self.x+self.w-1,i+self.y-1,colors.gray)
+    term.setCursorPos(self.x,i+self.y-1)
+--    term.write(tostring(self.btns[i]))
+    term.write(tostring(self.btns[i][1]))
+  end
+  _,_,x,y = os.pullEvent("mouse_click")
+  if x>self.x-1 and x<self.x+self.w then
+    if y>self.y-1 and y<self.y+#self.btns then
+      print(y-self.y+1)
+      self.btns[y-self.y+1][2]()
+    end
+  end
+end
+
+mt.__newindex = function(tab,key,val)
+  error("Im sorry, im afraid i cant do that.",2)
+end
+
+mt.__index = function(tab,key)
+  return menu[key]
+end
