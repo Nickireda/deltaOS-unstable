@@ -33,6 +33,9 @@ function removeIcon(name)
  for i=1, #appdata do
   if string.lower(appdata[i]["name"]) == string.lower(name) then
    table.remove(appdata,i)
+   local data = fs.open("/system/.appdata", "w")
+   data.write(textutils.serialize(appdata))
+   data.close()
    return true
   end
  end
