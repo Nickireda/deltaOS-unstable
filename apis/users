@@ -6,7 +6,7 @@ file.close()
 return cu
 end
 
-
+getUserName = getCurrentUser
 
 
 
@@ -135,19 +135,15 @@ function isRoot(user)
  return false
 end
  
-function login(user, pass)
- if not isUser(user) then
-  return false
- end
+function login(user)
+ if not isUser(user) then return false end
  local file = fs.open("/users/.cu","w")
  file.write(name)
  file.close()
  
- if isUser(user) == true and getPassword(user) == pass then
-  return true
- end
  
- return false
+ 
+ return true
 end
 
 
