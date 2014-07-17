@@ -312,8 +312,8 @@ end
 local function shellServ() 
 while true do
  local e,b,x,y = os.pullEvent()
- if e=="mouse_click" or e=="mouse_drag" then
-	if x==kernel.x-(kernel.x-1) and y==kernel.y-(kernel.y-1) and b==2 then
+ if e=="mouse_click" or e=="mouse_drag" or e=="monitor_touch" then
+	if x==kernel.x-(kernel.x-1) and y==kernel.y-(kernel.y-1) and b==2 and event ~= "monitor_touch" then
 		local d = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Do you want to", "shutdown?"}, true,true)
 		if d:autoCaptureEvents() == "ok" then
 			draw()
