@@ -117,10 +117,8 @@ if users.isUser(user) == true and pass == users.getPassword(user) then
 	graphics.cPrint("Logging in user")
 	graphics.cPrint(user.."...")
 	sleep(0.6)
-	isLogin = users.login(user, pass)
-	if isLogin == false then
-		 os.reboot()
-	end
+	users.login(user)
+
 	lw.setVisible(false)
 	term.redirect( term.native() )
 	
