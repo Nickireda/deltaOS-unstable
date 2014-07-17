@@ -31,7 +31,7 @@ function removeIcon(name)
  data.close()
  
  for i=1, #appdata do
-  if string.low(appdata[i]["name"]) == string.low(name) then
+  if string.lower(appdata[i]["name"]) == string.lower(name) then
    table.remove(appdata,i)
    return true
   end
