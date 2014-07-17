@@ -35,15 +35,15 @@
     menuVar = false
     pur = 0
      
-    logo = paintutils.loadImage('cookieclicker/logo')
-    upbutton = paintutils.loadImage('cookieclicker/upgradebutton')
+    logo = paintutils.loadImage('/system/extras/cookieclicker/logo')
+    upbutton = paintutils.loadImage('/system/extras/cookieclicker/upgradebutton')
     --upbutton2 = paintutils.loadImage('upgradebutton')
     --upbutton3 = paintutils.loadImage('upgradebutton')
     --upbutton4 = paintutils.loadImage('upgradebutton')
     --upbutton5 = paintutils.loadImage('upgradebutton')
-    --cctext = paintutils.loadImage('cookieclickertext')
-    cookie = paintutils.loadImage('cookieclicker/cookie')
-    shopicon = paintutils.loadImage('cookieclicker/shop')
+    --cctext = paintutils.loadImage('/system/extras/cookieclickertext')
+    cookie = paintutils.loadImage('/system/extras/cookieclicker/cookie')
+    shopicon = paintutils.loadImage('system/extrascookieclicker/shop')
      
     function startup()
       term.setBackgroundColor(colors.lime)
