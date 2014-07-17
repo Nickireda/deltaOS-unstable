@@ -19,7 +19,7 @@ function rednet.receive(protocol, timeout)
  
  local id, msg, dis = r(protocol or nil, timeout or nil)
  if checkTable(blockedIDs, id) == true then
-  return 0, msg, dis
+  return 0, "ID_BLOCKED", dis
  elseif checkTable(blockedMsg, msg) == true then
   return id, "BLOCKED_MSG", dis
  end
