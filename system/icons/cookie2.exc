@@ -43,7 +43,7 @@
     --upbutton5 = paintutils.loadImage('upgradebutton')
     --cctext = paintutils.loadImage('/system/extras/cookieclickertext')
     cookie = paintutils.loadImage('/system/extras/cookieclicker/cookie')
-    shopicon = paintutils.loadImage('system/extrascookieclicker/shop')
+    shopicon = paintutils.loadImage('system/extrasc/ookieclicker/shop')
      
     function startup()
       term.setBackgroundColor(colors.lime)
