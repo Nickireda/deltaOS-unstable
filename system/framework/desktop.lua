@@ -322,8 +322,8 @@ while true do
 			--isAppOpen = true
 			--print("Run 'exit' to go back to deltaOS")
 			--shell.run("/rom/programs/shell")
-   saveInfo()
-   os.shutdown()
+   			saveInfo()
+   			os.shutdown()
 			--isAppOpen = false
 			--animations.wake()
 			--draw()
