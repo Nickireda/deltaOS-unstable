@@ -1,4 +1,4 @@
-function getCurrentUser()
+function getUserName()
 if not fs.exists("users/.cu") then return false end
 local file = fs.open("/users/.cu","r")
 local cu = file.readLine()
@@ -6,9 +6,14 @@ file.close()
 return cu
 end
 
-getUserName = getCurrentUser
+getCurrentUser = getUserName
 
-
+function login(name)
+  local file = fs.open("/users/.cu","w")
+file.write(name)
+file.close()
+return true
+end
 
 
 function logOut()
@@ -49,8 +54,6 @@ end
 
 
 function changePass(name,newpass)
-
-
 if not fs.exists("users/set/"..name.."/.pass") then
 return false
 end
@@ -135,17 +138,3 @@ function isRoot(user)
  return false
 end
  
-function login(user)
- if not isUser(user) then return false end
- local file = fs.open("/users/.cu","w")
- file.write(name)
- file.close()
- 
- 
- 
- return true
-end
-
-
-
-
