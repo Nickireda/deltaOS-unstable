@@ -1,0 +1,40 @@
+
+function addIcon(excPath, icoPath, name, x, y)
+ --  yesh it will auto sort them x/y optional?
+ --so if x/y are nonexistent just assign like 500 to x and 2 to y and it will sort them
+ x=x or 500
+ y=y or 2
+ 
+ local a = fs.open("/system/.appdata", "r")
+ 
+ local appdata = textutils.unserialize(a.readAll())
+ 
+ a.close()
+ 
+ table.insert(appdata,{
+   ["y"]=y,
+   ["x"]=x,
+   ["name"]=name,
+   ["icon"]=icoPath,
+   ["exec"]=excPath
+ })
+ local a = fs.open("/system/.appdata", "w")
+ a.write(textutils.serialize(appdata))
+ a.close()
+end
+
+
+
+function removeIcon(name)
+ local data = fs.open("/system/.appdata", "r")
+ local appdata = textutils.unserialize(data.readAll())
+ data.close()
+ 
+ for i=1, #appdata do
+  if string.low(appdata[i]["name"]) == string.low(name) then
+   table.remove(appdata,i)
+   return true
+  end
+ end
+ 
+end
