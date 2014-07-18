@@ -1,6 +1,6 @@
 os.pullEvent = os.pullEventRaw
 
-build = 56
+build = 57
 
 local isDialog = false
 
@@ -9,7 +9,7 @@ local height = kernel.y
 
 	
 		
-
+rdnt = false
 appsdir = "system/apps"
 appsfle = "system/.appdata"
 gridsze = 5 --x=gridsze*c[x]+1
@@ -80,6 +80,14 @@ end
 
 
 term.redirect(lw)
+
+
+for _, side in pairs( rs.getSides() ) do
+	if peripheral.getType(side) == "modem" and peripheral.call(side, "isWireless") then
+		rdnt = true
+		rednet.open(side)
+	end
+end
 
 
 local lwx, lwy = lw.getSize()
@@ -412,10 +420,24 @@ local function firewall()
  shell.run("/system/framework/firewall")
 end
 
+local function pingServ()
+	if not rdnt then
+		return
+	elseif rdnt == true then
+		while true do
+			local i, m = rednet.receive("DOS")
+			if m == "$PING" then
+				rednet.send(i, "$TRUE", "DOS")
+				sleep(0.5)
+				rednet.send(i, "$TRUE", "DOS")
+			end
+			sleep(0)
+		end
+	end
+end
 
 
-
-parallel.waitForAll(sleepServ, shellServ, rServ, firewall)
+parallel.waitForAll(sleepServ, shellServ, rServ, firewall, pingServ)
 end
 
 end
