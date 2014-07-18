@@ -1,0 +1,41 @@
+local tArgs = { ... }
+
+ta = tArgs
+
+requesting = true
+
+if ta[1] == nil then
+ print("Proper syntax: ")
+ print("ping [ID]")
+ error()
+end
+
+local id = tonumber(ta[1])
+
+
+
+--local times = 0
+
+local function ping(id)
+ rednet.send(id, "$PING", "DOS")
+end
+
+ping(id)
+
+local function threadA()
+while requesting do
+ local i, m = rednet.receive("DOS")
+ if i == i and m == "$TRUE" then
+  print("Ping sucsessful, ID is running deltaOS!")
+  error()
+ end
+end
+end
+
+local function threadB()
+ sleep(2)
+ requesting = false
+ error()
+end
+
+parallel.waitForAny(threadA, threadB)
