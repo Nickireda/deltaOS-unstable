@@ -13,7 +13,7 @@ function tableIter(tableu,printMode) --This was in a program, but I'm enhancing 
   --Now for the real thing.
   if printMode == true then
     for i=1,#tableu do
-      print(tableu[i]
+      print(tableu[i])
     end
   elseif printMode == false then
     --Instead of nested fors, I decided to use some variables and a repeat
@@ -46,13 +46,13 @@ function roundNumber(n)
       return 10
     end
   else
-    table,table2,table3,o = {},{},{},""
+    otable,table2,table3,o = {},{},{},""
     for i=1,l do
       a = string.sub(sn,i,i)
-      table.insert(table,a)
+      table.insert(otable,a)
     end
     for i=1,l do
-      a,b = table[i],tonumber(a)
+      a,b = otable[i],tonumber(a)
       if b < 5 then
         c = 0
       else
