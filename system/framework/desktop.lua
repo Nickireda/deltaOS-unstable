@@ -1,6 +1,6 @@
 os.pullEvent = os.pullEventRaw
 
-build = 46
+build = 56
 
 local isDialog = false
 
@@ -118,6 +118,7 @@ if users.isUser(user) == true and pass == users.getPassword(user) then
 	graphics.cPrint(user.."...")
 	sleep(0.6)
 	users.login(user)
+
 	lw.setVisible(false)
 	term.redirect( term.native() )
 	
@@ -128,7 +129,7 @@ else
 	graphics.cPrint("Login failed.")
 	print("")
 	lw.setCursorPos(1, ch/2)
-	if users.isUser(user) == true and users.getPassword(user) == false then
+	if users.isUser(user) == true and users.getPassword(user) ~= pass then
 		graphics.cPrint("Password incorrect.")
 		sleep(0.6)
 		os.reboot()
@@ -162,7 +163,7 @@ dofile("/system/sApi/dialog")
 
 
 local function drawBar()
-	graphics.drawLine(1, colors.lightGray)
+	graphics.drawLine( 1, settings.getSetting("desktop", 3) )
 
 	term.current().setCursorPos( kernel.x-(kernel.x-1), kernel.y-(kernel.y-1))
 
@@ -222,7 +223,17 @@ local function drawGrid()
 end
 
 local function draw(ua)
-graphics.reset( colors.lightBlue, colors.black )
+
+local isI = false
+
+if settings.getSetting("desktop", 1) == "color" then
+	isI = true
+	graphics.reset( settings.getSetting("desktop", 2 ), colors.black )
+elseif settings.getSetting("desktop", 1) == "image" then
+	graphics.drawImage(settings.getSetting("desktop", 2), 1, 2)
+end
+	
+
 term.current().setCursorPos(kernel.x-(kernel.x-1), 1)
 if ua==nil then ua=true end
 drawBar()
@@ -231,8 +242,8 @@ if grid then drawGrid() end
 drawApps()
 
 if isUnstable then
- term.current().setBackgroundColor( colors.lightBlue )
- term.current().setCursorPos(kernel.x-string.len(fullBuildName)+1, kernel.y)
+ term.current().setBackgroundColor( settings.getSetting("desktop", 3) )
+ term.current().setCursorPos(kernel.x-string.len(fullBuildName)+1, 1)
  write(fullBuildName)
  term.current().setCursorPos(1, 1)
 end
@@ -301,8 +312,8 @@ end
 local function shellServ() 
 while true do
  local e,b,x,y = os.pullEvent()
- if e=="mouse_click" or e=="mouse_drag" then
-	if x==kernel.x-(kernel.x-1) and y==kernel.y-(kernel.y-1) and b==2 then
+ if e=="mouse_click" or e=="mouse_drag" or e=="monitor_touch" then
+	if x==kernel.x-(kernel.x-1) and y==kernel.y-(kernel.y-1) and b==2 and event ~= "monitor_touch" then
 		local d = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Do you want to", "shutdown?"}, true,true)
 		if d:autoCaptureEvents() == "ok" then
 			draw()
@@ -312,8 +323,8 @@ while true do
 			--isAppOpen = true
 			--print("Run 'exit' to go back to deltaOS")
 			--shell.run("/rom/programs/shell")
-   saveInfo()
-   os.shutdown()
+   			saveInfo()
+   			os.shutdown()
 			--isAppOpen = false
 			--animations.wake()
 			--draw()
@@ -397,12 +408,14 @@ local function rServ()
 end
 
 
+local function firewall()
+ shell.run("/system/framework/firewall")
+end
 
 
 
 
-
-parallel.waitForAll(sleepServ, shellServ, rServ)
+parallel.waitForAll(sleepServ, shellServ, rServ, firewall)
 end
 
 end

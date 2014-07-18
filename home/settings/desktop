@@ -1,4 +1,5 @@
 {
-  "/system/media/cat.nfp",
-  colors.lightGray,
+  "color",
+  8,
+  256,
 }

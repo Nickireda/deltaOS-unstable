@@ -41,4 +41,11 @@
     exec = "system/icons/epiprg.exc",
     icon = "system/icons/epiprg.img",
   },
+  {
+    y = 3,
+    x = 1,
+    name = "CCUG",
+    exec = "system/icons/cookie2.exc",
+    icon = "system/icons/cookie2.img",
+  },
 }

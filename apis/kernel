@@ -76,22 +76,7 @@ function clickEvent(xA, yA, button)
  end
 end
 
-function spanClickEvent(x1, y1, x2, y2, button1) 
- local event, button, xB, yB = os.pullEvent("mouse_click")
- if x1 >= xB and y1 <= yB then
-  if x2 <= xB and y2 <= yB then
-   if button1 == button then
-    return true
-   else
-    return false
-   end
-  else
-   return false
-  end
- else
-  return false
- end
-end
+
 
 function reset()
  term.current().clear()

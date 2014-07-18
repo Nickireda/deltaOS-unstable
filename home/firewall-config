@@ -1,0 +1,38 @@
+local ta = { ... }
+
+local function find(table, whatever)
+ for i=1, #table do
+  if table[i] == whatever then
+   return i
+  end
+ end
+end
+
+if ta[1] ~= "addID" and ta[1] ~= "delID" and ta[1] ~= "addMsg" and ta[1] ~= "delMsg" or ta[2] == nil then
+ print("Syntax Error: ")
+ print("firewall-config [addID/delID/addMsg/delMsg] [args]")
+ error()
+end
+
+local bid = settings.getSetting("firewall_blockID")
+local bmsg = settings.getSetting("firewall_blockMsg")
+
+if ta[1] == "addID" or ta[1] == "delID" then
+ ta[1] = tonumber(ta[1])
+end
+
+
+if ta[1] == "addID" then
+ settings.addSetting("firewall_blockID", nil, ta[2])
+elseif ta[1] == "delID" then
+ settings.addSetting("firewall_blockID", find(bid, ta[2]), "nil")
+end
+
+if ta[1] == "addMsg" then
+ settings.addSetting("firewall_blockMsg", nil, ta[2])
+elseif ta[2] == "delMsg" then
+ settings.addSetting("firewall_blockMsg", find(bmsg, ta[2]), "nil")
+end
+
+
+

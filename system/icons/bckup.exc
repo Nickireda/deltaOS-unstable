@@ -1,3 +1,29 @@
+
+local function checkTable(table, string)
+ for i=1, #table do
+  if table[i] == string then
+   return true
+  end
+ end
+ return false
+end
+
+local function exitServ()
+ sleep(0.6)
+ paintutils.drawPixel(kernel.x, kernel.y, colors.red)
+ term.setCursorPos(kernel.x, kernel.y)
+ write("X")
+ while true do
+ local e, b, x, y = os.pullEvent()
+ if event == "mouse_click" and x == kernel.x and y == kernel.y then
+  error()
+ end
+end
+end
+
+
+local function main()
+
 graphics.reset(colors.white, colors.black)
 print("")
 graphics.cPrint("Delta Time Machine")
@@ -20,8 +46,8 @@ local function backup()
  local cPos = 1
  
  for _, dir in ipairs(fs.list("/")) do
-  if dir ~= "users" and dir ~= "rom" and dir ~= "system" and dir ~= "apps" and dir ~= "apis" then
-   if fs.isDir(dir) then
+  if dir ~= "users" and dir ~= "rom" and dir ~= "system" and dir ~= "apps" and dir ~= "apis" and dir ~= "lib" and dir ~= "home" then
+   if fs.isDir(dir) and checkTable(dirs, dir) == false then
     table.insert(dirs, dir)
    end
   end
@@ -29,6 +55,7 @@ local function backup()
  graphics.reset(colors.white, colors.black)
  print("")
  graphics.cPrint("Delta Time Machine")
+ os.queueEvent("rd_x")
  print("")
  print("")
  graphics.cPrint("We have found these directorys: ")
@@ -41,8 +68,9 @@ local function backup()
  end
  elseif dirs[1] == nil then
   graphics.cPrint("NO directories found.")
+  return
   sleep(1)
-  error()
+  shell.exit()
  end
  
  paintutils.drawLine(2, cPos+2, kernel.x-1, cPos+2, colors.gray)
@@ -62,11 +90,13 @@ local function backup()
   fs.copy("/apps", "/"..dirs[folder].."/apps")
   fs.copy("/apis", "/"..dirs[folder].."/apis")
   fs.copy("/startup", "/"..dirs[folder].."/startup")
+  fs.copy("/home", "/"..dirs[folder].."/home")
   local x = fs.open(dirs[folder].."/.backup", "w")
   x.write("BACKUP MAKRER")
   x.close()
   graphics.reset(colors.white, colors.black)
   term.setCursorPos(1, kernel.y/2)
+  os.queueEvent("rd_x")
   graphics.cPrint("Backed up.")
   sleep(0.6)
   graphics.reset(colors.black, colors.white)
@@ -84,6 +114,8 @@ local function restore()
  local dirs = { }
  graphics.reset(colors.white, colors.black)
  print("")
+ os.queueEvent("rd_x")
+ term.setBackgroundColor(colors.white)
  graphics.cPrint("Delta Time Machine")
  print("")
  for _, file in ipairs( fs.list("/") ) do
@@ -113,13 +145,16 @@ local function restore()
    fs.copy(dirs[folder].."/startup", "/startup")
    fs.copy(dirs[folder].."/apis", "/apis")
    fs.copy(dirs[folder].."/users", "/users")
+   fs.copy(dirs[folder].."/home", "/home")
    graphics.reset(colors.white, colors.black)
    term.setCursorPos(1, kernel.y/2)
+   os.queueEvent("rd_x")
+   term.setBackgroundColor(colors.white)
    graphics.cPrint("Restored.")
    sleep(1)
    os.reboot()
   else
-   error()
+   return
   end
  end
  
@@ -130,7 +165,17 @@ while true do
  local e, b, x, y = os.pullEvent("mouse_click")
  if y == 5 then
   backup()
+  error()
  elseif y == 7 then
   restore()
+  error()
  end
 end
+
+
+
+end
+
+
+
+parallel.waitForAll(main, exitServ)

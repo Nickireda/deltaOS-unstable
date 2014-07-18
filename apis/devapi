@@ -13,7 +13,7 @@ function tableIter(tableu,printMode) --This was in a program, but I'm enhancing 
   --Now for the real thing.
   if printMode == true then
     for i=1,#tableu do
-      print(tableu[i]
+      print(tableu[i])
     end
   elseif printMode == false then
     --Instead of nested fors, I decided to use some variables and a repeat
@@ -36,7 +36,49 @@ function drawBox(x,y,width,height,color)
       paintutils.drawLine(x,yo,1,width,color)
       yo=yo+1
     until yo=height-h
-end    
+end
+function roundNumber(n)
+  sn,l = tostring(n),string.len(sn)
+  if l == 1 then
+    if n < 5 then
+      return 0
+    else
+      return 10
+    end
+  else
+    otable,table2,table3,o = {},{},{},""
+    for i=1,l do
+      a = string.sub(sn,i,i)
+      table.insert(otable,a)
+    end
+    for i=1,l do
+      a,b = otable[i],tonumber(a)
+      if b < 5 then
+        c = 0
+      else
+        c = 10
+      end
+      table.insert(table2,c)
+    end
+    for i=1,l do
+      a,b,c = table2[i],tostring(a),string.sub(b,1,1)
+      table.insert(table3,c)
+    end
+    for i=1,l do
+      o = o .. table3[i]
+    end
+    return tonumber(o)
+  end
+end  
+    
+      
+      
+      
+      
+      
+      
+    
+      
       
     
     

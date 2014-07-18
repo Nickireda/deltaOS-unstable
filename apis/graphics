@@ -1,3 +1,9 @@
+cWrite = function(text)
+        local x = term.current().getSize()
+        local _,y = term.current().getCursorPos()
+        term.current().setCursorPos(x/2-#text/2,y)
+        write(text)
+end
 
 cPrint = function(text)
         local x2,y2 = term.current().getCursorPos()
@@ -78,5 +84,4 @@ function ynbox(x, y, isYes)
  end
  return xPos
 end
- 
 

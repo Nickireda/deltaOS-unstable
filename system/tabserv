@@ -16,7 +16,7 @@ local tempTabName = nil
 local tabProgs = {}
 
 os.loadAPI("/apis/kernel")
-os.loadAPI("/apis/dialog")
+os.loadAPI("/system/sApi/dialog")
 
 --[ Local Functions ]--
 local function wrapTabs(num,dir,list)
@@ -171,7 +171,7 @@ function tabRun(program, name)
 end
 
 local function tabMain()
-	tabRun("/system/desktop.lua", "DeltaOS")
+	tabRun("/system/framework/desktop.lua", "DeltaOS")
 	switchTab("DeltaOS")
 	while true do
 		drawTabs()

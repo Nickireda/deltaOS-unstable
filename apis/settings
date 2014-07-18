@@ -17,12 +17,12 @@ function addSetting(setting, number, newValue)
 
  local set = getSetting(setting)
 
- local get = fs.open("/home/settings"..setting, "w")
+ local get = fs.open("/home/settings/"..setting, "w")
  
  
  
- table.remove(set, number)
- table.insert(set, number, setting)
+ 
+ set[number] = newValue
  
  get.write( textutils.serialize(set) )
  
