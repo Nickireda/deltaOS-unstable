@@ -1,6 +1,6 @@
 os.pullEvent = os.pullEventRaw
 
-build = 54
+build = 56
 
 local isDialog = false
 
@@ -309,19 +309,74 @@ end
 -- return math.floor(x/gridsze),math.floor(y/gridsze)
 --end
 
-local function menuServ()
-	local e, b, x, y = os.pullEvent()
-	if event == "monitor_touch" or event == "mouse_click" then
-		if x == 1 and y == 1 then
-			local men = menu.new(1, 1)
-			men:addMenuButton("Shell", function() animations.sleep() shell.run("/rom/programs/shell") draw() end)
-			men:addMenuButton("Shutdown", function() animations.shutdown() os.shutdown() end)
-			men:addMenuButton("Reboot", function() animations.shutdown() os.reboot() end)
-			men:captureButton()
-		end
-	end
+local function shellServ() 
+while true do
+ local e,b,x,y = os.pullEvent()
+ if e=="mouse_click" or e=="mouse_drag" or e=="monitor_touch" then
+	if x==kernel.x-(kernel.x-1) and y==kernel.y-(kernel.y-1) and b==2 and event ~= "monitor_touch" then
+		local d = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Do you want to", "shutdown?"}, true,true)
+		if d:autoCaptureEvents() == "ok" then
+			draw()
+			animations.closeIn()
+			graphics.reset(colors.black, colors.white)
+			--term.setCursorPos(1, 2)
+			--isAppOpen = true
+			--print("Run 'exit' to go back to deltaOS")
+			--shell.run("/rom/programs/shell")
+   			saveInfo()
+   			os.shutdown()
+			--isAppOpen = false
+			--animations.wake()
+			--draw()
+		else
 			
+			draw()
+		end
+	else
+  local found = false
+  for k,v in pairs(apps) do
+   local xs,ys = (apps[k].x-1)*gridsze,(apps[k].y-1)*gridsze
+   --local xs,ys = 3,4
+   --print(kernal.inSpan) read()
+   
+   if kernel.inSpan(xs+2,ys+3,xs+5,ys+6,x,y) then
+    if e=="mouse_drag" then
+     if asel~=k then asel=k;draw(false) end
+     dragIcon(k)
+    else
+     if asel==k then
+      if os.clock()-lclk<=dbclk then
+       animations.closeIn()
+       graphics.reset(colors.black,colors.white)
+       shell.run(apps[k]["exec"])
+       if grid then drawGrid() end
+       animations.wake()
+       draw()
+      end
+     else
+      asel=k
+      draw()
+     end 
+     lclk=os.clock()
+    end
+    found=true
+    break
+   end
+  end
+  if not found then
+   asel=0
+   draw()
+  end
+  end
+ elseif e=="key" then
+  if b==67 then
+   grid = not grid
+   draw()
+  end
+ end
+ end
 end
+
 
 
 local function sleepServ()
@@ -360,7 +415,7 @@ end
 
 
 
-parallel.waitForAll(sleepServ, menuServ, rServ, firewall)
+parallel.waitForAll(sleepServ, shellServ, rServ, firewall)
 end
 
 end
