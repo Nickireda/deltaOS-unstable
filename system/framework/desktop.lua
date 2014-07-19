@@ -1,3 +1,5 @@
+oldPullEvent = os.pullEvent
+
 os.pullEvent = os.pullEventRaw
 
 build = 58
@@ -356,7 +358,10 @@ while true do
       if os.clock()-lclk<=dbclk then
        animations.closeIn()
        graphics.reset(colors.black,colors.white)
+       os.pullEvent = oldPullEvent
        shell.run(apps[k]["exec"])
+       oldPullEvent = os.pullEvent
+       os.pullEvent = os.pullEventRaw
        if grid then drawGrid() end
        animations.wake()
        draw()
