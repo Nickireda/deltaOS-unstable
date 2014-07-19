@@ -1,7 +1,8 @@
 oldPullEvent = os.pullEvent
+
 os.pullEvent = os.pullEventRaw
 
-build = 57
+build = 58
 
 local isDialog = false
 
@@ -119,7 +120,7 @@ term.setCursorPos(2, 9)
 local pass = sha256.hash(read("*"))
 
 
-if users.isUser(user) == true and pass == users.getPassword(user) then
+if (users.isUser(user) or users.isUser(string.lower(user) == true) and (pass == users.getPassword(user)) then
 	local cw, ch = lw.getSize()
 	graphics.reset(colors.white, colors.black)
 	lw.setCursorPos(1, ch/2)
@@ -138,7 +139,7 @@ else
 	graphics.cPrint("Login failed.")
 	print("")
 	lw.setCursorPos(1, ch/2)
-	if users.isUser(user) == true and users.getPassword(user) ~= pass then
+	if (users.isUser(user) == true or users.isUser(user:lower()) == true) and users.getPassword(user) ~= pass then
 		graphics.cPrint("Password incorrect.")
 		sleep(0.6)
 		os.reboot()
@@ -442,16 +443,6 @@ end
 
 
 parallel.waitForAll(sleepServ, shellServ, rServ, firewall, pingServ)
-end
-
-end
-
-
-
-
-mainDesktop()  
-
-kernel.saveToFile(apps,"system/.appdata")v, rServ, firewall, pingServ)
 end
 
 end
