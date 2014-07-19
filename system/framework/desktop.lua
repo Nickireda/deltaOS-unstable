@@ -421,9 +421,9 @@ local function firewall()
 end
 
 local function pingServ()
-	if not rdnt then
+	if not rdnt or settings.getSetting("services", 1) == false then
 		return
-	elseif rdnt == true then
+	elseif rdnt == true and settings.getSetting("services", 1) == true then
 		while true do
 			local i, m = rednet.receive("DOS")
 			if m == "$PING" then
