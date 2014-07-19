@@ -2,7 +2,7 @@ oldPullEvent = os.pullEvent
 
 os.pullEvent = os.pullEventRaw
 
-build = 58
+build = 59
 
 local isDialog = false
 
@@ -120,7 +120,7 @@ term.setCursorPos(2, 9)
 local pass = sha256.hash(read("*"))
 
 
-if (users.isUser(user) or users.isUser(string.lower(user) == true) and (pass == users.getPassword(user)) then
+if (users.isUser(user) or users.isUser(string.lower(user)) == true) and (pass == users.getPassword(user) then
 	local cw, ch = lw.getSize()
 	graphics.reset(colors.white, colors.black)
 	lw.setCursorPos(1, ch/2)
