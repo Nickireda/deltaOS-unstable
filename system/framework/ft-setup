@@ -63,7 +63,7 @@ if pass ~= pass2 then
 end
 
 
-users.newUser(string.lower(user), pass, true)
+users.newUser(user, pass, true)
 graphics.reset(colors.lightGray, colors.black)
 
 graphics.cPrint("DeltaOS first-time setup")
