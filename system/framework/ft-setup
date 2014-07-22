@@ -97,7 +97,7 @@ print("")
 print("")
 print("Press F1 to go into sleep mode.")
 print("Press F9 to the grid on the desktop.")
-print("All passwords are hashed with SHA256")
+print("All passwords are hashed with SHA256 and then salted!")
 print("Check for updates every day!")
 print("Back up your data!")
 
