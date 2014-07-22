@@ -2,7 +2,7 @@ oldPullEvent = os.pullEvent
 
 os.pullEvent = os.pullEventRaw
 
-build = 59
+build = 60
 
 local isDialog = false
 
@@ -442,7 +442,7 @@ local function pingServ()
 end
 
 
-parallel.waitForAll(sleepServ, shellServ, rServ, firewall, pingServ)
+parallel.waitForAll(sleepServ, shellServ, rServ, firewall)
 end
 
 end
