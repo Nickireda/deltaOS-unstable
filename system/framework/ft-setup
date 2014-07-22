@@ -56,7 +56,7 @@ if pass ~= pass2 then
   term.setCursorPos(2, kernel.y/2-3)
   term.setTextColor(colors.red)
   term.setBackgroundColor(colors.lightGray)
-  graphics.cPrint("Passwords Do Not Match")
+  graphics.cPrint("Passwords do not match.")
   term.setTextColor(colors.black)
   sleep(1)
   os.reboot()
