@@ -84,12 +84,7 @@ end
 term.redirect(lw)
 
 
-for _, side in pairs( rs.getSides() ) do
-	if peripheral.getType(side) == "modem" and peripheral.call(side, "isWireless") then
-		rdnt = true
-		rednet.open(side)
-	end
-end
+
 
 
 local lwx, lwy = lw.getSize()
