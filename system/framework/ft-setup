@@ -51,7 +51,7 @@ term.setCursorPos(2, kernel.y/2+8)
 
 
 
-local pass2 = sha256.hash( read("*") )
+local pass2 = sha256.sHash( read("*"), user )
 if pass ~= pass2 then
   term.setCursorPos(2, kernel.y/2-3)
   term.setTextColor(colors.red)
