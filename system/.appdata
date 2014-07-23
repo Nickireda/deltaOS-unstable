@@ -48,4 +48,12 @@
     exec = "system/icons/cookie2.exc",
     icon = "system/icons/cookie2.img",
   },
+  {
+    y = 3,
+    x = 4,
+    name = "Ink",
+    exec = "system/icons/ink.exc",
+    icon = "system/icons/ink.img",
+  },
+    
 }
