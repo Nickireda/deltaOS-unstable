@@ -46,6 +46,7 @@ end
 
 
 function getPassword(name)
+if not fs.exists("users/set/"..name.."/.pass") then return false end
 local file2 = fs.open("users/set/"..name.."/.pass","r")
 local pass = file2.readLine()
 file2.close()
