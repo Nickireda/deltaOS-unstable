@@ -22,6 +22,7 @@ end
 function menu:captureButton()
 --  for k,v in pairs(self) do print(k) end
   for i=1,#self.btns do
+    term.setTextColor(colors.black)
     paintutils.drawLine(self.x,i+self.y-1,self.x+self.w-1,i+self.y-1,colors.white)
     term.setCursorPos(self.x,i+self.y-1)
 --    term.write(tostring(self.btns[i]))
