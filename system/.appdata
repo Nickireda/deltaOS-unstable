@@ -55,5 +55,12 @@
     exec = "system/icons/ink.exc",
     icon = "system/icons/ink.img",
   },
+  {
+    y = 3,
+    x = 7,
+    name = "Sketch",
+    exec = "system/icons/sketch.exc",
+    icon = "system/icons/sketch.img",
+  },
 }
---add sketch later, after OS-breaking bug is figured out and fixed.
+
