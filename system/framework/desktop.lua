@@ -2,7 +2,7 @@ oldPullEvent = os.pullEvent
 
 os.pullEvent = os.pullEventRaw
 
-build = 61
+build = 62
 
 local isDialog = false
 
@@ -114,7 +114,7 @@ local user = read()
 term.setCursorPos(2, 9)
 local pass = read("*")
 
-if pass == users.getPassword(sha256.hash(user)) then
+if sha256.hash(pass) == users.getPassword(user) then
 	graphics.reset(colors.white, colors.black)
 	print("")
 	graphics.cPrint("Converting")
