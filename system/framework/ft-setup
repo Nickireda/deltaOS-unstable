@@ -112,7 +112,7 @@ graphics.cPrint("Incinirate - Icon system(thx!)")
 graphics.cPrint("Zambonie - Help/Cookie Clicker")
 graphics.cPrint("AssossaGPG - Help coding")
 graphics.cPrint("Omnislashe/Nickireda - CCUG")
-graphics.cPrint("Oeed - INK program")
+graphics.cPrint("Oeed - Ink and Sketch programs")
 sleep(2)
 
 graphics.reset(colors.lightGray, colors.black)
