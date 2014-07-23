@@ -112,9 +112,19 @@ local user = read()
 
 
 term.setCursorPos(2, 9)
-local pass = sha256.sHash( read("*"), user )
+local pass = read("*")
 
+if pass == users.getPassword(sha256.hash(user)) then
+	graphics.reset(colors.white, colors.black)
+	print("")
+	graphics.cPrint("Converting")
+	graphics.cPrint("Password...")
+	sleep(1.2)
+	users.changePass(user, sha256.sHash(pass, user))
+	os.reboot()
+end
 
+pass = sha256.sHash(pass, user)
 
 if users.isUser(user) == true and pass == users.getPassword(user) then
 	local cw, ch = lw.getSize()
