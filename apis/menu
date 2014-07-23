@@ -20,6 +20,16 @@ function menu:addMenuButton(text,func)
 end
 
 function menu:captureButton()
+  local cy =#self.btns+self.y
+  
+  
+  local cx = self.x+self.w
+  
+  local mx = self.w+self.x
+  
+  paintutils.drawLine(self.x+1, cy, cx, cy, colors.gray)
+  paintutils.drawLine(mx, self.y+1, mx, cy, colors.gray)
+
 --  for k,v in pairs(self) do print(k) end
   for i=1,#self.btns do
     term.setTextColor(colors.black)
