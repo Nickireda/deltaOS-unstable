@@ -169,8 +169,9 @@ if tonumber(latest.readAll()) > build then
 	shell.run("/system/update")
 end
 
-animations.wake()
-	
+if settings.getSetting("desktop", 4) == true then
+ animations.wake()
+end	
 
 
 
@@ -362,14 +363,18 @@ while true do
     else
      if asel==k then
       if os.clock()-lclk<=dbclk then
-       animations.closeIn()
+       if settings.getSetting("desktop", 4) == true then
+        animations.closeIn()
+       end
        graphics.reset(colors.black,colors.white)
        os.pullEvent = oldPullEvent
        shell.run(apps[k]["exec"])
        oldPullEvent = os.pullEvent
        os.pullEvent = os.pullEventRaw
        if grid then drawGrid() end
-       animations.wake()
+       if settings.getSetting("desktop", 4) == true then
+        animations.wake()
+       end
        draw()
       end
      else
@@ -406,7 +411,9 @@ local function sleepServ()
  		local event = os.pullEvent()
  		if event == "key" or event == "mouse_click" or event == "monitor_touch" then
  			os.sleep(0.1)
- 			animations.wake()
+ 			if settings.getSetting("desktop", 4) == true then
+ 			 animations.wake()
+ 			end
  			os.sleep(0.1)
  			--login()
  			draw()
