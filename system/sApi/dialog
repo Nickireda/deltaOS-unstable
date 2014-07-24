@@ -4,8 +4,8 @@
 Dialog = {}
 Dialog.__index = Dialog
 
-Dialog.titleBarColor = colors.blue
-Dialog.titleTextColor = colors.white
+Dialog.titleBarColor = colors.gray
+Dialog.titleTextColor = colors.black
 Dialog.contentBgColor = colors.lightGray
 Dialog.contentTextColor = colors.black
 Dialog.buttonColor = colors.white
@@ -65,6 +65,7 @@ function Dialog:redraw(x, y)
 	term.current().write(string.rep(" ", self.width))
 	term.current().setCursorPos(self.x+math.floor((self.width/2)-(#self.title/2)), self.y)
 	term.current().write(self.title)
+	
 
 	-- Draw contents area
 	term.current().setBackgroundColor(Dialog.contentBgColor)
