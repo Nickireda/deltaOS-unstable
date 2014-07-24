@@ -41,3 +41,20 @@ function removeIcon(name)
  end
  
 end
+
+function listIcons()
+
+ local icos = {}
+ local data = fs.open("/system/.appdata", "r")
+ appdata = textutils.unserialize( data.readAll() )
+ data.close()
+ 
+ for i=1, #appdata do
+  table.insert(icos, appdata[i]["name"])
+ end
+ 
+ return icos
+ 
+end
+
+
