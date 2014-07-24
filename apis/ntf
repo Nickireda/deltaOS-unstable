@@ -1,0 +1,89 @@
+--[[
+	converts a hex digit into a color value
+	** this function was taken from NPaintPro by NitrogenFingers
+]]--
+local getColourOf = function(hex)
+	local value = tonumber(hex, 16)
+	if not value then return nil end
+	value = math.pow(2,value)
+	return value
+end
+
+-------------
+---- NFT ----
+-------------
+
+--[[
+	parses the lines of an NFT file
+	** this function was taken from Sketch by oeed
+	** (which was based on a function from NPaintPro by NitrogenFingers)
+]]--
+local parseNFT = function(lines)
+	local pixels = {}
+	for y, line in ipairs(lines) do
+		local bgNext, fgNext = false, false
+		local currBG, currFG = nil,nil
+		local writePosition = 1
+		for x = 1, #line do
+			if not pixels[writePosition] then
+				pixels[writePosition] = {}
+			end
+			
+			local nextChar = string.sub(line, x, x)
+			if nextChar:byte() == 30 then
+				bgNext = true
+			elseif nextChar:byte() == 31 then
+				fgNext = true
+			elseif bgNext then
+				currBG = getColourOf(nextChar)
+				if currBG == nil then
+					currBG = colors.black
+				end
+				bgNext = false
+			elseif fgNext then
+				currFG = getColourOf(nextChar)
+				fgNext = false
+			else
+				if nextChar ~= " " and currFG == nil then
+					currFG = colors.white
+				end
+				pixels[writePosition][y] = {b = currBG,t = currFG,c = nextChar}
+				writePosition = writePosition + 1
+			end
+		end
+	end
+	return pixels
+end
+
+--[[
+	loads an NFT file from a path and parses it
+]]--
+loadNFT = function(path)
+	local h = fs.open(path,"r")
+	local lines = {}
+	local line = ""
+	
+	while (line ~= nil) do
+		line = h.readLine()
+		table.insert(lines,line)
+	end
+	
+	return parseNFT(lines)
+end
+
+--[[
+	very glitchy implementation of an NFT draw function
+	** will mess up an image with transparent pixels
+]]--
+drawNFT = function(x,y,pixels)
+	for ypos=1,#pixels do
+		for xpos=1,#pixels[ypos] do
+			local p = pixels[ypos][xpos]
+			
+			term.setCursorPos(x+ypos-1,y+xpos-1)
+			if (p.b) then term.setBackgroundColor(p.b) end
+			if (p.t) then term.setTextColor(p.t) end
+			term.write(p.c)
+		end
+	end
+end
