@@ -2,9 +2,10 @@
   {
     y = 2,
     x = 1,
-    name = "shell",
+    name = "Shell",
     exec = "system/icons/shell.exc",
     icon = "system/icons/shell.img",
+    isNFT = true,
   },
   {
     y = 2,
@@ -12,6 +13,7 @@
     name = "fldr",
     exec = "system/icons/folder.exc",
     icon = "system/icons/folder.img",
+    isNFT = false,
   },
   {
     y = 2,
@@ -19,6 +21,7 @@
     name = "Bak/Res",
     exec = "system/icons/bckup.exc",
     icon = "system/icons/bckup.img",
+    isNFT = false,
   },
   {
     y = 2,
@@ -26,6 +29,7 @@
     name = "Updt",
     exec = "system/icons/update.exc",
     icon = "system/icons/update.img",
+    isNFT = false,
   },
   {
     y = 2,
@@ -33,6 +37,7 @@
     name = "CookieClicker",
     exec = "system/icons/cookie.exc",
     icon = "system/icons/cookie.img",
+    isNFT = false,
   },
   {
     y = 3,
@@ -40,6 +45,7 @@
     name = "CCUG",
     exec = "system/icons/cookie2.exc",
     icon = "system/icons/cookie2.img",
+    isNFT = false,
   },
   {
     y = 3,
@@ -47,6 +53,7 @@
     name = "Ink",
     exec = "system/icons/ink.exc",
     icon = "system/icons/ink.img",
+    isNFT = false,
   },
   {
     y = 3,
@@ -54,6 +61,7 @@
     name = "Sketch",
     exec = "system/icons/sketch.exc",
     icon = "system/icons/sketch.img",
+    isNFT = false,
   },
 }
 
