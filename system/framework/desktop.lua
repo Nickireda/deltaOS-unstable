@@ -530,7 +530,7 @@ local function pingServ()
 end
 
 
-parallel.waitForAll(sleepServ, shellServ, rServ, firewall)
+parallel.waitForAll(sleepServ, shellServ, firewall)
 end
 
 end
