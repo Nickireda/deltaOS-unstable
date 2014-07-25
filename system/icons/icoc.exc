@@ -1,0 +1,149 @@
+term.clear()
+local x,y = term.getSize()
+local menuone={
+	[1] = "Add Icon",
+	[2] = "Del Icon",
+	[3] = "Create Icon File",
+	[4] = "Exit"
+}
+local curr = 1
+local close = false
+function p(...) return paintutils.drawLine(...) end
+function s(obj, ...) return obj.setCursorPos(...) end
+function w(obj, ...) return obj.write(...) end
+function txt(obj, ...) return obj.setTextColor(...) end
+function bg(obj, ...) return obj.setBackgroundColor(...) end
+function text(obj, text, style, cy)
+	if style == "center" then
+		s(obj, x/2 - #text/2, cy)
+		w(obj, text)
+	elseif style == "left" then
+		s(obj, 1, cy)
+		w(obj, text)
+	elseif style == "right" then
+		s(obj, x - #text, cy)
+		w(obj, text)
+	end
+end
+
+local header = window.create(term.current(), 1, 1, x, 2)
+local body = window.create(term.current(), 1, 3, x, y - 3)
+local footer = window.create(term.current(), 1, y, x, 1)
+
+function getIcon(name)
+	found = false
+	for i,v in pairs(icons.listIcons()) do
+		if v:lower() == name:lower() then found = true end
+	end
+	return found
+end
+function addIcon()
+	body.clear()
+	text(body, "Program: ", "center", y/2 - 1)
+	icoProg = read()
+	text(body, "Icon File: ", "center", y/2)
+	icoFile = read()
+	text(body, "Icon Name: ", "center", y/2 + 1)
+	icoName = read()
+	text(body, "Is .nft?(y/n): ", "center", y/2 + 2)
+	icoNFT = read()
+	footer.clear()
+	if icoName == "" or icoFile == "" or icoName == "" or icoNFT == "" then icoName = nil end
+	if icoName == nil then text(footer, "Error", "center", 1) drawBody() return end
+	if icoNFT == "y" or icoNFT == "Y" then icoNFT = true else icoNFT = false end
+	if getIcon(icoName) then text(footer, "Error", "center", 1) drawBody() elseif not getIcon(icoName) then text(footer, "Success", "center", 1) icons.addIcon(icoProg, icoFile, icoName, icoNFT) drawBody() end
+end
+function delIcon()
+	body.clear()
+	text(body, "Icon Name: ", "center", y/2)
+	icoName = read()
+	footer.clear()
+	if icoName == "" or icoName == nil then text(footer, "Error", "center", 1) drawBody() return end
+	if icons.removeIcon(icoName) then text(footer, "Success", "center", 1) else text(footer, "Error", "center", 1) end
+	drawBody()
+end
+function creIcon()
+	body.clear()
+	--[[text(body, "Icon Name: ", "center", y/2)
+	icoName = read()
+	if icoName == "" or icoName == nil then text(footer, "Error", "center", 1) drawBody() return end
+	if fs.exists("npaintpro") then
+		shell.run("npaintpro "..icoName)
+	else
+		shell.run("paint "..icoName)
+	end
+	drawHeader()
+	footer.clear()
+	if fs.exists("npaintpro") then
+		text(footer, icoName..".nfp", "center", 1)
+	else
+		text(footer, icoName, "center", 1)
+	end]]
+	if fs.exists("system/icons/sketch.exc") then
+		shell.run("system/icons/sketch.exc")
+	else
+		text(footer, "Error", "center", 1)
+	end
+	drawHeader()
+	drawBody()
+end
+function drawHeader()
+	bg(header, colors.lightBlue)
+	header.clear()
+	term.redirect(header)
+	p(1, 2, x, 2, colors.white)
+	term.redirect(term.native())
+	bg(header, colors.lightBlue)
+	txt(header, colors.white)
+	text(header, "DeltaOS Icon Creator", "center", 1)
+	bg(header, colors.white)
+	txt(header, colors.lightBlue)
+	text(header, "Made by BlacK", "center", 2)
+end
+function drawMenu()
+	body.clear()
+	for i,v in pairs(menuone) do text(body, (curr == i and "{ " or "")..v..(curr == i and " }" or ""), "center", 3 + i) end
+end
+function clicker()
+	while true do
+		_, key = os.pullEvent("key")
+		if key == keys.enter then
+			if curr == 1 then
+				addIcon()
+				break
+			elseif curr == 2 then
+				delIcon()
+				break
+			elseif curr == 3 then
+				creIcon()
+				break
+			elseif curr == 4 then
+				close = true
+				break
+			end
+		end
+		if key == keys.up then
+			if curr == 1 then
+				curr = 4
+			else
+				curr = curr - 1
+			end
+		end
+		if key == keys.down then
+			if curr == 4 then
+				curr = 1
+			else
+				curr = curr + 1
+			end
+		end
+		drawMenu()
+	end
+	if close == true then shell.run("exit") end
+end
+function drawBody()
+	drawMenu()
+	clicker()
+end
+
+drawHeader()
+drawBody()
