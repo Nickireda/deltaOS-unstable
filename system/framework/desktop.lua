@@ -216,7 +216,11 @@ local function drawApps()
    end
   end
 --====================================================================================
-  graphics.drawImage(apps[k].icon,(apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+3)
+  if apps[k].isNFT then
+    graphics.drawNFT(apps[k].icon,(apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+3)
+  else
+    graphics.drawImage(apps[k].icon,(apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+3)
+  end
   term.setCursorPos((apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+6)
   term.setBackgroundColor(asel==k and colors.blue or colors.lightBlue)
   write(string.rep(" ",gridsze-1))
