@@ -62,15 +62,16 @@ local function backup()
  print("")
  cPos = 6
  if dirs[1] ~= nil then
- for i=1, #dirs do
-  cPos = cPos+1
-  print(i..". "..dirs[1])
+  for i=1, #dirs do
+   cPos = cPos+1
+   print(i..". "..dirs[1])
+  end
  end
- elseif dirs[1] == nil then
+ if dirs[1] == nil then
   graphics.cPrint("NO directories found.")
   return
   sleep(1)
-  shell.exit()
+  error()
  end
  
  paintutils.drawLine(2, cPos+2, kernel.x-1, cPos+2, colors.gray)
@@ -87,7 +88,7 @@ local function backup()
   fs.copy("/ft-setup.lua", "/"..dirs[folder].."/ft-setup.lua")
   fs.copy("/system", "/"..dirs[folder].."/system")
   fs.copy("/users", "/"..dirs[folder].."/users")
-  fs.copy("/apps", "/"..dirs[folder].."/apps")
+  fs.copy("/lib", "/"..dirs[folder].."/lib")
   fs.copy("/apis", "/"..dirs[folder].."/apis")
   fs.copy("/startup", "/"..dirs[folder].."/startup")
   fs.copy("/home", "/"..dirs[folder].."/home")
@@ -141,6 +142,7 @@ local function restore()
    fs.delete("/startup")
    fs.delete("/apis")
    fs.delete("/users")
+   fs.copy(dirs[folder].."/lib", "/lib")
    fs.copy(dirs[folder].."/system", "/system")
    fs.copy(dirs[folder].."/startup", "/startup")
    fs.copy(dirs[folder].."/apis", "/apis")
