@@ -1,0 +1,21 @@
+local function request(pURL)
+	pURL = table.concat(pURL, "/")
+	local URL
+	if pURL:sub(1,5) == "https" then
+		URL = pURL
+	else
+		URL = 'https://api.github.com/'..pURL
+	end
+	--print('Get: '..URL)
+	local res = http.get(URL)
+	if res then
+		return json.decode(res.readAll())
+	else
+		printError('No data!')
+		return nil
+	end
+end
+
+function getCommits(owner,repo)
+	return request({'repos',owner,repo,'commits'})
+end
