@@ -225,6 +225,7 @@ local function drawApps()
   term.setBackgroundColor(asel==k and colors.blue or colors.lightBlue)
   write(string.rep(" ",gridsze-1))
   term.setCursorPos((apps[k].x-1)*gridsze+2,(apps[k].y-1)*gridsze+6)
+  term.setTextColor(colors.black)
   write(apps[k].name:sub(1,gridsze-1))
  end
 end
