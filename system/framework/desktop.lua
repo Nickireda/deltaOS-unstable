@@ -11,8 +11,7 @@ local height = kernel.y
 
 if not fs.exists("system/.appdata") then
 	local hand = fs.open("system/.appdata","w")
-	hand.write('
-{
+local tab = {
   {
     y = 2,
     x = 1,
@@ -77,7 +76,8 @@ if not fs.exists("system/.appdata") then
     icon = "system/icons/sketch.img",
     isNFT = false,
   },
-}')
+}
+	hand.write(textutils.serialize(tab))
 	hand.close()
 end
 		
