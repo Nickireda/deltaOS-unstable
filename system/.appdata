@@ -4,7 +4,7 @@
     x = 1,
     name = "Shell",
     exec = "system/icons/shell.exc",
-    icon = "system/icons/shell.img",
+    icon = "system/icons/shell.nft",
     isNFT = true,
   },
   {
@@ -52,8 +52,8 @@
     x = 4,
     name = "Ink",
     exec = "system/icons/ink.exc",
-    icon = "system/icons/ink.img",
-    isNFT = false,
+    icon = "system/icons/ink.nft",
+    isNFT = true,
   },
   {
     y = 3,
