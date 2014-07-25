@@ -81,7 +81,7 @@ function ynbox(x, y, isYes)
 end
 
 function drawNFT(image, x, y)
- local nftFile = ntf.loadNTF(image)
- ntf.drawNFT(x, y, nftFile)
+ local nftFile = nft.loadNFT(image)
+ nft.drawNFT(x, y, nftFile)
 end
 
