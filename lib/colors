@@ -4,7 +4,7 @@ oSB=term.setBackgroundColor
 oST=term.setTextColor
 _G.term.setBackgroundColor = function(color)
   if term.isColor(color) then
-    _G.term.bg=colors
+    _G.term.bg=color
   end
   return oSB(color)
 end
@@ -13,7 +13,7 @@ _G.term.getBackgroundColor = function()
 end
 _G.term.setTextColor = function(color)
   if term.isColor(color) then
-    _G.term.fg=colors
+    _G.term.fg=color
   end
   return oST(color)
 end
