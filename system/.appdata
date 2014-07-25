@@ -28,8 +28,8 @@
     x = 10,
     name = "Updt",
     exec = "system/icons/update.exc",
-    icon = "system/icons/update.img",
-    isNFT = false,
+    icon = "system/icons/update.nft",
+    isNFT = true,
   },
   {
     y = 2,
