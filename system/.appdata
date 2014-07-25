@@ -18,10 +18,10 @@
   {
     y = 2,
     x = 7,
-    name = "Bak/Res",
-    exec = "system/icons/bckup.exc",
-    icon = "system/icons/bckup.img",
-    isNFT = false,
+    name = "IcoC",
+    exec = "system/icons/icoc.exc",
+    icon = "system/icons/icoc.nft",
+    isNFT = true,
   },
   {
     y = 2,
