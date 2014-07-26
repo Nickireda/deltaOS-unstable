@@ -1,0 +1,20 @@
+I do NOT know a good license that will fit this, so I just write mine here ~FlareHAX0R
+
+I will also make this simple to read.
+
+
+
+DeltaOS is an open source project, and anyone may use it under the follwing statements:
+
+1. You may not copy the OS and claim it as your own. You may not modify the OS for public use without permission from an 
+ offical developer(FlareHAX0R, Incinirate, aepic101)
+ 
+2. The team has full rights to revoke access to the OS or uninstall the OS at any time.
+
+3. You may use the OS for commerical purposes, however you may NOT claim it as your own as defined in [1].
+
+4. You may not redistrbute the OS for a price.
+
+5. You may NOT remove any credits.
+
+6. I like cats.
