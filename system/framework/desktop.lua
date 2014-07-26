@@ -510,7 +510,7 @@ end
 
 
 local function firewall()
- shell.run("/system/framework/firewall")
+ shell.run("/system/digitalarmor/firewall")
 end
 
 local function pingServ()
