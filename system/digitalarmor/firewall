@@ -1,6 +1,7 @@
 --Delta Firewall, by HAX0R
 
 local r = rednet.receive
+local ospr = os.pullEventRaw
 
 local function checkTable(table, whatever)
  for i=1, #table do
@@ -32,3 +33,16 @@ function rednet.receive(protocol, timeout)
  
 end
 
+
+function os.pullEventRaw(event)
+ local blockedIDs = settings.getSetting("firewall_blockID")
+ local blockedMsg = settings.getSetting("firewall_blockMSG")
+ local event = { os.pullEventRaw(event) }
+ 
+ if event == "rednet_message" then
+  if checkTable(blockedIDs, event[1]) == true then
+   event[2] = 0
+   event[3] = "BLOCKED_ID"
+ 
+ 
+end
