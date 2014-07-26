@@ -50,7 +50,7 @@ function os.pullEventRaw(event)
   if checkTable(blockedIDs, event[4]) == true then
    event[4] = 0
    event[5] = "BLOCKED_ID"
-  elseif checkTable(blockedMsg, event[5])
+  elseif checkTable(blockedMsg, event[5]) == true then
    event[5] = "BLOCKED_MSG"
   end
  end
