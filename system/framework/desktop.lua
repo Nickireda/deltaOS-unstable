@@ -409,7 +409,10 @@ while true do
 		local d = Dialog.new(nil, nil, nil, nil, "DeltaOS", {"Do you want to", "shutdown?"}, true,true)
 		if d:autoCaptureEvents() == "ok" then
 			draw()
-			animations.closeIn()
+			
+			if settings.getSetting("desktop", 4) == true then
+			 animations.shutdown()
+			end
 			graphics.reset(colors.black, colors.white)
 			--term.setCursorPos(1, 2)
 			--isAppOpen = true
