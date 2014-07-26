@@ -29,6 +29,7 @@ local tApis = fs.list( "/apis" )
 for k, v in pairs( tApis ) do
  if not fs.isDir(v) then
   os.loadAPI("/apis/"..v)
+  print("Loading API "..v)
  end
 end
 
@@ -36,6 +37,7 @@ local tLib = fs.list( "/lib" )
 for k, v in pairs( tLib ) do
  if not fs.isDir(v) then
   dofile("/lib/"..v)
+  print("Loading library "..v)
  end
 end
 
