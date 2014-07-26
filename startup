@@ -10,6 +10,8 @@ version = "LYNX-1.4"
 --Required files
 local rf = {"/system", "/system/framework", "/system/framework/desktop.lua", "system/media/delta.nfp", "/startup", "/apis/sha256"}
 
+
+os.loadAPI("/apis/settings")
 os.loadAPI("/apis/delta")
 os.loadAPI("/apis/kernel")
 os.loadAPI("/apis/graphics")
