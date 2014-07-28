@@ -297,6 +297,8 @@ end
 
 end
 
+loginScr()
+
 local latest = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 if tonumber(latest.readAll()) > build then
 	graphics.drawImage("/system/media/delta.nfp", 1, 1)
@@ -560,7 +562,7 @@ local function sleepServ()
  			 animations.wake()
  			end
  			os.sleep(0.1)
- 			loginScr()
+ 		
  			draw()
  		end
  	end
