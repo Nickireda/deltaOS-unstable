@@ -113,7 +113,7 @@ graphics.cPrint("Zambonie - Help/Cookie Clicker")
 graphics.cPrint("AssossaGPG - Help coding")
 graphics.cPrint("Omnislashe/Nickireda - CCUG")
 graphics.cPrint("Oeed - Ink and Sketch programs")
-graphics.cPrint("InputUsername - NTF api")
+graphics.cPrint("InputUsername - NFT api and login screen")
 sleep(4)
 
 graphics.reset(colors.lightGray, colors.black)
