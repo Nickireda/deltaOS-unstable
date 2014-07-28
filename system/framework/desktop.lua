@@ -2,7 +2,7 @@ oldPullEvent = os.pullEvent
 
 os.pullEvent = os.pullEventRaw
 
-build = 65
+build = 66
 
 local isDialog = false
 
@@ -139,7 +139,7 @@ local gc = getC()
 
 
 
-graphics.drawImage("/system/media/delta.nfp", 1, 1)
+local function loginScr()
 
 local function maxRead(w,c,str)
 	w = w and w-1 or 10
@@ -295,7 +295,7 @@ while true do
 	end
 end
 
-
+end
 
 local latest = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 if tonumber(latest.readAll()) > build then
@@ -560,7 +560,7 @@ local function sleepServ()
  			 animations.wake()
  			end
  			os.sleep(0.1)
- 			--login()
+ 			loginScr()
  			draw()
  		end
  	end
