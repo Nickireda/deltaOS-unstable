@@ -282,6 +282,7 @@ while true do
 	if (login:isClicked(x,y)) then
 		if users.isUser(username) and users.getPassword(username) == sha256.sHash(password, username) then
 			users.login(username)
+			break
 			
 		else 
 			term.setCursorPos(1, 1)
