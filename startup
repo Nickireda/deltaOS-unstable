@@ -10,8 +10,6 @@ version = "LYNX-1.4"
 --Required files
 local rf = {"/system", "/system/framework", "/system/framework/desktop.lua", "system/media/delta.nfp", "/startup", "/apis/sha256"}
 
-
-os.loadAPI("/apis/settings")
 os.loadAPI("/apis/delta")
 os.loadAPI("/apis/kernel")
 os.loadAPI("/apis/graphics")
@@ -24,17 +22,24 @@ end
 
 
 
-local function loadDeltaOS()
+
+
+
+graphics.reset(colors.black)
+sleep(0.1)
+graphics.reset(colors.gray)
+sleep(0.1)
+graphics.reset(colors.lightGray)
+sleep(0.1)
+graphics.reset(colors.white)
+sleep(0.1)
+
 
 os.loadAPI("/apis/users")
 local tApis = fs.list( "/apis" )
 for k, v in pairs( tApis ) do
  if not fs.isDir(v) then
   os.loadAPI("/apis/"..v)
-  if settings.getSetting("debug", 1) == true then
-   print("Loading API "..v)
-   sleep(0.2)
-  end
  end
 end
 
@@ -42,10 +47,6 @@ local tLib = fs.list( "/lib" )
 for k, v in pairs( tLib ) do
  if not fs.isDir(v) then
   dofile("/lib/"..v)
-  if settings.getSetting("debug", 1) == true then
-   print("Loading library "..v)
-   sleep(0.2)
-  end
  end
 end
 
@@ -57,18 +58,16 @@ end
 
 
 
-graphics.reset(colors.lightBlue, colors.black)
-graphics.drawLine(1, colors.lightGray)
-graphics.drawLine(kernel.y, colors.lightGray)
-term.setBackgroundColor(colors.lightBlue)
-term.setCursorPos(1, 2)
+graphics.reset(colors.white, colors.black)
+--graphics.drawLine(1, colors.black)
+--graphics.drawLine(kernel.y, colors.lightGray)
+term.setBackgroundColor(colors.white)
+term.setCursorPos(1, kernel.y/2-2)
 
 
 graphics.cPrint("DeltaOS")
 
-graphics.drawImage("/system/media/logo.nfp", kernel.x/2-11/2, 4)
 
-term.setBackgroundColor(colors.lightBlue)
 
 --[[
 local data = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS/master/version")
@@ -93,6 +92,3 @@ sleep(1.5)
 
 
 shell.run("/system/framework/desktop.lua")
-end
-
-loadDeltaOS()
