@@ -138,103 +138,169 @@ end
 local gc = getC()
 
 
---local function login()
-	
+
 graphics.drawImage("/system/media/delta.nfp", 1, 1)
 
-local lw
-if kernel.x>32 then
-	lw = window.create( term.current(), kernel.x/2-30/2, kernel.y/2-10/2, 30, 10, true )
-else
-	lw = window.create( term.current(), kernel.x/2-(kernel.x-2)/2+1, kernel.y/2-10/2, (kernel.x-2), 10, true )
-end
-
-
-
-term.redirect(lw)
-
-
-
-
-
-local lwx, lwy = lw.getSize()
-
-
-while true do
-graphics.reset(colors.white, colors.black)
-
-graphics.cPrint("DeltaOS login")
-print("")
-graphics.cPrint("Username:")
-
-local ww, wh = lw.getSize()
-
-paintutils.drawLine( 2, 4, ww-1, 4, colors.lightGray )
-
-print("")
-lw.setBackgroundColor(colors.white)
-term.setCursorPos(1, 7)
-graphics.cPrint("Password: ")
-paintutils.drawLine( 2, 9, ww-1, 9, colors.lightGray )
-
-term.setCursorPos(2, 4)
-local user = read()
-
-
-term.setCursorPos(2, 9)
-local pass = read("*")
-
-if sha256.hash(pass) == users.getPassword(user) then
-	graphics.reset(colors.white, colors.black)
-	print("")
-	graphics.cPrint("Converting")
-	graphics.cPrint("Password...")
-	sleep(1.2)
-	users.changePass(user, sha256.sHash(pass, user))
-	os.reboot()
-end
-
-pass = sha256.sHash(pass, user)
-
-if users.isUser(user) == true and pass == users.getPassword(user) then
-	local cw, ch = lw.getSize()
-	graphics.reset(colors.white, colors.black)
-	lw.setCursorPos(1, ch/2)
-	graphics.cPrint("Logging in user")
-	graphics.cPrint(user.."...")
-	sleep(0.6)
-	users.login(user)
-
-	lw.setVisible(false)
-	term.redirect( term.native() )
+local function maxRead(w,c,str)
+	w = w and w-1 or 10
 	
-else
-	local cw, ch = lw.getSize()
-	graphics.reset(colors.white, colors.black)
-	lw.setCursorPos(1, 2)
-	graphics.cPrint("Login failed.")
-	print("")
-	lw.setCursorPos(1, ch/2)
-	if (users.isUser(user) == true or users.isUser(user:lower()) == true) and users.getPassword(user) ~= pass then
-		graphics.cPrint("Password incorrect.")
-		sleep(0.6)
-		os.reboot()
-	elseif users.isUser(user) == false then
-		graphics.cPrint("No such user.")
-		sleep(0.6)
-		os.reboot()
+	term.setCursorBlink(true)
+	local x,y = term.getCursorPos() --get original cursor x,y
+	
+	local s = str or "" --string
+	local ds = "" --displayed string
+	
+	ds = s
+	if (c) then
+		ds = string.rep(c,#s)
+	end
+	
+	term.setCursorPos(x,y)
+	term.write(string.rep(" ",w+1))
+	term.setCursorPos(x,y)
+	term.write(string.sub(ds,(#s-w >= 1) and #s-w or 1,#s))
+	
+	while true do --main loop
+		local e,p,cx,cy = os.pullEvent() --pull event
+		
+		if e == "char" then --character was pressed
+			s = s..p --append typed character to string
+		elseif e == "key" then --key was pressed
+			if p == keys.enter then --return/enter
+				break --break the loop
+			elseif p == keys.backspace then --backspace
+				s = string.sub(s,1,#s-1) --remove last character from string
+			end
+		elseif e == "mouse_click" then
+			if (cx < x) or (cx > x+w) or (cy ~= y) then
+				break
+			end
+		end
+		
+		ds = s
+		if (c) then
+			ds = string.rep(c,#s)
+		end
+		
+		term.setCursorPos(x,y)
+		term.write(string.rep(" ",w+1))
+		term.setCursorPos(x,y)
+		term.write(string.sub(ds,(#s-w >= 1) and #s-w or 1,#s))
+	end
+	
+	term.setCursorBlink(false)
+	return s --return the string
+end
+
+local bgSetting = nil --settings.getSetting("desktop",2)
+local bgColor,bgImage
+if (type(bgSetting) == "string") then
+	if (fs.exists(bgSetting)) then
+		bgImage = bgSetting
 	else
-		graphics.cPrint("Unknown Error.")
-		sleep(0.6)
-		os.reboot()
+		bgColor = colors.white
+	end
+elseif (type(bgSetting) == "number") then
+	bgColor = bgSetting
+else
+	bgColor = colors.white
+end
+
+local function drawBackground()
+	if (bgColor) then
+		term.setBackgroundColor(bgColor)
+		term.clear()
+	elseif (bgImage) then
+		term.clear()
+		graphics.drawImage(bgImage)
+	else
+		term.setBackgroundColor(colors.white)
+		term.clear()
 	end
 end
+
+drawBackground()
+
+local w,h = term.getSize()
+
+term.setBackgroundColor(colors.lightGray)
+term.setCursorPos(2,4)
+term.write(string.rep(" ",w-2))
+term.setCursorPos(2,7)
+term.write(string.rep(" ",w-2))
+
+term.setBackgroundColor(colors.white)
+term.setTextColor(colors.black)
+term.setCursorPos(2,3)
+term.write("Username")
+term.setCursorPos(2,6)
+term.write("Password")
+
+local button = {
+	new = function(self,s,x,y,b,t)
+		return setmetatable({s=s,x=x,y=y,b=b,t=t},{__index=self})
+	end,
+	draw = function(self)
+		term.setBackgroundColor(self.b)
+		term.setTextColor(self.t)
+		term.setCursorPos(self.x,self.y)
+		term.write(self.s)
+	end,
+	isClicked = function(self,cx,cy)
+		return ((cx >= self.x) and (cx <= self.x+#self.s-1) and (cy == self.y))
+	end
+}
+
+local login = button:new(" Login ",2,h-1,colors.green,colors.black)
+local shutdown = button:new(" Shutdown ",w-10,h-1,colors.red,colors.black)
+
+if (pocket) then
+	login.x = w/2 - #login.s/2
+	login.y = h-3
+	login.s = " "..login.s.."  "
+	shutdown.x = w/2 - #shutdown.s/2 + 1
+end
+
+login:draw()
+shutdown:draw()
+
+local username,password = "",""
+while true do
+	local e,_,x,y = os.pullEvent("mouse_click")
+	
+	if (x >= 2) and (x <= w-1) then
+		if (y == 4) then
+			term.setBackgroundColor(colors.lightGray)
+			term.setCursorPos(2,4)
+			username = maxRead(w-2,nil,username)
+		elseif (y == 7) then
+			term.setBackgroundColor(colors.lightGray)
+			term.setCursorPos(2,7)
+			password = maxRead(w-2,"*",password)
+		end
+	end
+	if (login:isClicked(x,y)) then
+		if users.isUser(username) and users.getPassword(username) == sha256.sHash(password, username) then
+			users.login(username)
+			
+		else 
+			term.setCursorPos(1, 1)
+			term.setTextColor(colors.red)
+			graphics.cPrint("Invalid username and/or password")
+		end
+			
+	elseif (shutdown:isClicked(x,y)) then
+		os.shutdown()
+	end
+end
+
+
 
 local latest = http.get("https://raw.githubusercontent.com/FlareHAX0R/deltaOS-unstable/master/version")
 if tonumber(latest.readAll()) > build then
 	graphics.drawImage("/system/media/delta.nfp", 1, 1)
-	term.current().setBackgroundColor(colors.cyan)
-	term.current().setCursorPos(1, kernel.y-3)
+	term.current().setBackgroundColor(colors.white)
+	term.current().setCursorPos(1, 1)
 	graphics.cPrint("Updating...")
 	shell.run("/system/update")
 end
