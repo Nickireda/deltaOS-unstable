@@ -25,8 +25,8 @@ local tab = {
     x = 4,
     name = "fldr",
     exec = "system/icons/folder.exc",
-    icon = "system/icons/folder.img",
-    isNFT = false,
+    icon = "system/icons/folder.nft",
+    isNFT = true,
   },
   {
     y = 2,
