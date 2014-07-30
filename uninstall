@@ -1,0 +1,17 @@
+print("Are you sure you want to uninstall DeltaOS? (y/n)")
+local choice = string.lower(read())
+
+if choice == "y" or choice == "yes" then
+ print("Uninstalling deltaOS...")
+ fs.delete("/startup")
+ fs.delete("/system")
+ fs.delete("/users")
+ fs.delete("/home")
+ fs.delete("/lib")
+ fs.delete("/apis")
+ print("DeltaOS uninstalled... rebooting")
+ sleep(1)
+ os.reboot()
+else
+ print("Not uninstalling deltaaOS...")
+end
