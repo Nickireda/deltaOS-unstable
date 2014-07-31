@@ -3,7 +3,44 @@
     -- This code Was Created by Nickireda and Omnislashe
     -- Please Do not Steal or claim it as your own
      
-     
+    -- company screens
+ompple = paintutils.loadImage('ACUGE/cc/logo2')
+starstang = paintutils.loadImage('ACUGE/cc/logo1')
+function Fin()
+term.setBackgroundColor(colors.gray)
+term.clear()
+term.setCursorPos(1,1)
+sleep(.1)
+term.setBackgroundColor(colors.white)
+term.clear()
+term.setCursorPos(1,1)
+end
+function Fout()
+ term.setBackgroundColor(colors.gray)
+ term.clear()
+ term.setCursorPos(1,1)
+ sleep(.1)
+ term.setBackgroundColor(colors.black)
+ term.clear()
+ term.setCursorPos(1,1)
+ sleep(.1)
+end
+
+Fin()
+paintutils.drawImage(ompple,1,1)
+term.setCursorPos(5, 15)
+print("An Ompple co. game")
+sleep(3)
+Fout()
+Fin()
+paintutils.drawImage(starstang,1,1)
+term.setCursorPos(1,15)
+print("And in part with StarStang")
+term.setCursorPos(8,16)
+print("Games(TM)")
+sleep(4)
+Fout()
+ 
     if turtle then
       print("Why are you playing this on a turtle?")
       sleep(1.5)
@@ -16,8 +53,10 @@
       error()
     end
      
-    LastUpdate = ('7/12/2014')
+    LastUpdate = ('7/31/2014')
+    version = "1.2"
     cps = 0
+    cpc = 0
     clicks = 0
     clickMult = 1
     cookies = 0
@@ -37,11 +76,6 @@
      
     logo = paintutils.loadImage('/system/extras/cookieclicker/logo')
     upbutton = paintutils.loadImage('/system/extras/cookieclicker/upgradebutton')
-    --upbutton2 = paintutils.loadImage('upgradebutton')
-    --upbutton3 = paintutils.loadImage('upgradebutton')
-    --upbutton4 = paintutils.loadImage('upgradebutton')
-    --upbutton5 = paintutils.loadImage('upgradebutton')
-    --cctext = paintutils.loadImage('/system/extras/cookieclickertext')
     cookie = paintutils.loadImage('/system/extras/cookieclicker/cookie')
     shopicon = paintutils.loadImage('system/extras/cookieclicker/shop')
      
@@ -50,6 +84,7 @@
       term.clear()
       term.setCursorPos(1,1)
       paintutils.drawImage(logo, 2, 1)
+      print("Version "..version)
     end
     startup()
     sleep(3)
@@ -65,7 +100,6 @@
       paintutils.drawImage(upbutton, 25, 7)
       paintutils.drawImage(upbutton, 25, 10)
       paintutils.drawImage(upbutton, 25, 14)
-     -- paintutils.drawImage(cctext, 1, 16)
       paintutils.drawImage(shopicon, 1, 17)
       term.setCursorPos(1,1)
       print("Menu")
@@ -245,27 +279,49 @@
           Sng = fs.open("cookieclicker/Sng", 'w')
           Sng.write(ng)
           Sng.close()
-         
           fs.delete("cookieclicker/Ssg")
           fs.copy("cookieclicker/Temp", "cookieclicker/Ssg")
-         
+          
           Ssg = fs.open("cookieclicker/Ssg", 'w')
           Ssg.write(sg)
           Ssg.close()
-         
           fs.delete("cookieclicker/Sutgg")
           fs.copy("cookieclicker/Temp", "cookieclicker/Sutgg")
-         
+          
           Sutgg = fs.open("cookieclicker/Sutgg", 'w')
           Sutgg.write(utgg)
           Sutgg.close()
-         
           fs.delete("cookieclicker/Snm")
           fs.copy("cookieclicker/Temp", "cookieclicker/Snm")
-         
+          
           Snm = fs.open("cookieclicker/Snm", 'w')
           Snm.write(nm)
           Snm.close()
+          
+          fs.delete("cookieclicker/shopX2cps")
+          fs.copy("cookieclicker/Temp", "cookieclicker/shopX2cps")
+          timestwow = fs.open("cookieclicker/shopX2cps", 'w')
+          timestwow.write(timestwo)
+          timestwow.close()
+          
+          fs.delete("cookieclicker/fiveClick")
+          fs.copy("cookieclicker/Temp", "cookieclicker/fiveClick")
+          fiveClickw = fs.open("cookieclicker/fiveClick", 'w')
+          fiveClickw.write(fiveClick)
+          fiveClickw.close()
+          
+          fs.delete("cookieclicker/five2Click")
+          fs.copy("cookieclicker/Temp", "cookieclicker/five2Click")
+          five2Clickw = fs.open("cookieclicker/five2Click", 'w')
+          five2Clickw.write(five2Click)
+          five2Clickw.close()
+          
+          fs.delete("cookieclicker/cpc")
+          fs.copy("cookieclicker/Temp", "cookieclicker/cpc")
+          cpcw = fs.open("cookieclicker/cpc", 'w')
+          cpcw.write(cpc)
+          cpcw.close()
+          
           menuVar = false
           game()
           elseif key == 49 then menuVar = false
@@ -317,6 +373,22 @@
            Lnm = fs.open('cookieclicker/Snm','r')
            nm = Lnm.readAll()
            Lnm.close()
+           
+           timestwov = fs.open("cookieclicker/shopX2cps", 'r')
+           timestwo = timestwov.readAll()
+           timestwov.close()
+          
+           fiveClickv = fs.open("cookieclicker/fiveClick", 'r')
+           fiveClick = fiveClickv.readAll()
+           fiveClickv.close()
+          
+           five2Clickv = fs.open("cookieclicker/five2Click", 'r')
+           five2Click = five2Clickv.readAll()
+           five2Clickv.close()
+          
+           cpcv = fs.open("cookieclicker/cpc", 'r')
+           cpc = five2Clickv.readAll()
+           cpcv.close()
            
            menuVar = false
            game()
@@ -456,33 +528,33 @@
      
     -- all purchase funcs
     function bagma()
-    if cookies >= 15 then
-    cookies = cookies - 15
-    cps = cps + 0.1
-    bag=bag+1
-    pur=pur+1
-    else game()
-    end
+    	if cookies >= 15 then
+    		cookies = cookies - 15
+ 		cps = cps + 0.1
+    		bag=bag+1
+    		pur=pur+1
+    	else game()
+      end
     end
      
     function normma()
-    if cookies >= 100 then
-    cookies = cookies - 100
-    cps = cps + 0.5
-    ng=ng+1
-    pur=pur+1
-    else game()
-    end
+    	if cookies >= 100 then
+    		cookies = cookies - 100
+    		cps = cps + 0.5
+    		ng=ng+1
+    		pur=pur+1
+    	else game()
+      end
     end
      
     function aagma()
-    if cookies >= 500 then
-    cookies = cookies - 500
-    cps = cps + 8
-    sg=sg+1
-    pur=pur+1
-    else game()
-    end
+    	if cookies >= 500 then
+    		cookies = cookies - 500
+    		cps = cps + 8
+    		sg=sg+1
+    		pur=pur+1
+    	else game()
+      end
     end
      
     function tggma()
@@ -510,7 +582,7 @@
       print("<exit>****************<Shop>***********************")
       print("Cookies:"..cookies.." ")      
       print("() Times 2 Cps($"..timestwo..")")
-      term.setCursorPos(1,5)
+      print("-=-=-Current cookies per click:"..cpc.."-=-=-")
       print("() Add 5 to every Cookie Click($"..fiveClick..")")
       term.setCursorPos(1,7)
       print("() Add 20 to every Cookie Click($"..five2Click..")")
@@ -528,18 +600,24 @@
             clickMult = clickMult + 5
             fiveClick = fiveClick + 50
             pur = pur +1
+            cpc = cpc + 50
             shop()
           elseif cookies >= five2Click and y == 7 and x >=1 and x <=2 then
             clickMult = clickMult + 20
             cookies = cookies - five2Click
             five2Click = five2Click + 200
+            cpc = cpc + 200
             pur = pur +1
             shop()
           else shop()
        end
        clickTimer = os.startTimer(1)
     end
-     
+    -- exparimental function here
+    function checkAchs
+    
+    end
+    -- normal function
     function ac()
       cookies = cookies + cps
     end
