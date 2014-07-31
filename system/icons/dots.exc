@@ -1,0 +1,183 @@
+	os.loadAPI("/system/extras/dotsData/gameutils")
+    gameutils.initializeBuffer()
+    term.clear()
+    term.setCursorPos(1,1)
+    bads1 = true
+    bads2 = true
+    bads3 = true
+    bads4 = true
+    bads5 = true
+    bads6 = true
+    bads7 = true
+    bads8 = true
+    shoot = false
+    current = false
+    kills = 0
+    rounds = 0
+    lives = 3
+    shootx = {4, 10, 16, 22, 28, 34, 40, 46}
+    local back = gameutils.loadSprite("/system/extras/dotsData/background.nfp", 1, 1)
+    local char = gameutils.loadSprite("/system/extras/dotsData/char.nfp", 24, 17)
+    local bord1 = gameutils.loadSprite("/system/extras/dotsData/border.nfp", 2, 17)
+    local bord2 = gameutils.loadSprite("/system/extras/dotsData/border.nfp", 50, 17)
+    local bad1 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 3, 3)
+    local bad2 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 9, 3)
+    local bad3 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 15, 3)
+    local bad4 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 21, 3)
+    local bad5 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 27, 3)
+    local bad6 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 33, 3)
+    local bad7 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 39, 3)
+    local bad8 = gameutils.loadSprite("/system/extras/dotsData/bad.nfp", 45, 3)
+    local shoot = gameutils.loadSprite("/system/extras/dotsData/shoot.nfp", 25, 3)
+    local badshoot = gameutils.loadSprite("/system/extras/dotsData/badshoot.nfp", 4, 4)
+     
+    function buff()
+    gameutils.writeToBuffer(back)
+    gameutils.writeToBuffer(char)
+    gameutils.writeToBuffer(bord1)
+    gameutils.writeToBuffer(bord2)
+    gameutils.writeToBuffer(shoot)
+    if bads1 == true then
+    gameutils.writeToBuffer(bad1)
+    end
+    if bads2 == true then
+    gameutils.writeToBuffer(bad2)
+    end
+    if bads3 == true then
+    gameutils.writeToBuffer(bad3)
+    end
+    if bads4 == true then
+    gameutils.writeToBuffer(bad4)
+    end
+    if bads5 == true then
+    gameutils.writeToBuffer(bad5)
+    end
+    if bads6 == true then
+    gameutils.writeToBuffer(bad6)
+    end
+    if bads7 == true then
+    gameutils.writeToBuffer(bad7)
+    end
+    if bads8 == true then
+    gameutils.writeToBuffer(bad8)
+    end
+    a = math.random(1,8)
+    badshoot.x = shootx[a]
+    if a == 1 and bads1 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 2 and bads2 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 3 and bads3 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 4 and bads4 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 5 and bads5 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 6 and bads6 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 7 and bads7 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    elseif a == 8 and bads8 == true then
+    current = true
+    gameutils.writeToBuffer(badshoot)
+    else
+    current = false
+    end
+    gameutils.drawBuffer()
+    term.setCursorPos(13,1)
+    term.setBackgroundColor(colors.red)
+    term.setTextColor(colors.white)
+    term.write("Dots v2.3 by secret1timb7.")
+    term.setCursorPos(3,19)
+    term.setBackgroundColor(colors.blue)
+    term.write("Controls Left = Left, Right = Right, Up = Shoot")
+    term.setCursorPos(3, 2)
+    term.setBackgroundColor(colors.cyan)
+    term.write("Kills: "..kills.." Rounds: "..rounds.." Lives: "..lives)
+    term.setCursorPos(46, 2)
+    term.setBackgroundColor(colors.yellow)
+    term.write("Exit")
+    end
+     
+    while true do
+    buff()
+    bb = char:pCollidesWith(badshoot)
+    if bb == true and current == true then
+    lives = lives - 1
+    if lives == 0 then
+    term.setBackgroundColor(colors.black)
+    term.clear()
+    term.setCursorPos(1,1)
+    term.setTextColor(colours.white)
+    print("Thanks for playing dots! Game by secret1timb7")
+    print("Kills : "..kills.." Rounds : "..rounds)
+    error()
+    end
+    end
+    local event, param1, param2, param3 = os.pullEvent()
+    if event == "mouse_click" then
+    if param2 > 45 and param2 < 50 and param3 == 2 then
+    term.setBackgroundColor(colors.black)
+    term.setTextColor(colors.white)
+    term.setCursorPos(1,1)
+    term.clear()
+    print("Thanks for playing! Game by secret1timb7.")
+    error()
+    end
+    end
+    if event == "key" then
+    if param1 == keys.left then
+    char.x = char.x - 3
+    shoot.x = shoot.x - 3
+    elseif param1 == keys.right then
+    char.x = char.x + 3
+    shoot.x = shoot.x + 3
+    elseif param1 == keys.up then
+    c1 = shoot:pCollidesWith(bad1)
+    c2 = shoot:pCollidesWith(bad2)
+    c3 = shoot:pCollidesWith(bad3)
+    c4 = shoot:pCollidesWith(bad4)
+    c5 = shoot:pCollidesWith(bad5)
+    c6 = shoot:pCollidesWith(bad6)
+    c7 = shoot:pCollidesWith(bad7)
+    c8 = shoot:pCollidesWith(bad8)
+    if c1 == true and bads1 == true then bads1 = false kills = kills + 1
+    elseif c2 == true and bads2 == true then bads2 = false kills = kills + 1
+    elseif c3 == true and bads3 == true then bads3 = false kills = kills + 1
+    elseif c4 == true and bads4 == true then bads4 = false kills = kills + 1
+    elseif c5 == true and bads5 == true then bads5 = false kills = kills + 1
+    elseif c6 == true and bads6 == true then bads6 = false kills = kills + 1
+    elseif c7 == true and bads7 == true then bads7 = false kills = kills + 1
+    elseif c8 == true and bads8 == true then bads8 = false kills = kills + 1
+    end
+    end
+    a = char:pCollidesWith(bord1)
+    b = char:pCollidesWith(bord2)
+    if a == true then
+    char.x = char.x + 3
+    shoot.x = shoot.x + 3
+    elseif b == true then
+    char.x = char.x - 3
+    shoot.x = shoot.x - 3
+    end
+    end
+    if bads1 == false and bads2 == false and bads3 == false and bads4 == false and bads5 == false and bads6 == false and bads7 == false and bads8 == false then
+    bads1 = true
+    bads2 = true
+    bads3 = true
+    bads4 = true
+    bads5 = true
+    bads6 = true
+    bads7 = true
+    bads8 = true
+    rounds = rounds + 1
+    end
+    end
+
