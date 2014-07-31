@@ -614,7 +614,7 @@ Fout()
        clickTimer = os.startTimer(1)
     end
     -- exparimental function here
-    function checkAchs
+    function checkAchs()
     
     end
     -- normal function
